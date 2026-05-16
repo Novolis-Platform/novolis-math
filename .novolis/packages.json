@@ -1,0 +1,14 @@
+{
+  "packages": {
+    "Novolis.Math": {
+      "paths": [
+        "src/Novolis.Math/**",
+        "tests/**",
+        "Directory.Build.props",
+        "Directory.Packages.props",
+        "global.json"
+      ],
+      "project": "src/Novolis.Math/Novolis.Math.csproj"
+    }
+  }
+}
