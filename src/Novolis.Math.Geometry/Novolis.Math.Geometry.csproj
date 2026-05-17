@@ -1,4 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\Novolis.Math.Arrays\Novolis.Math.Arrays.csproj" />
+  </ItemGroup>
   <PropertyGroup>
     <PackageId>Novolis.Math.Geometry</PackageId>
     <Version>0.1.0-preview.1</Version>

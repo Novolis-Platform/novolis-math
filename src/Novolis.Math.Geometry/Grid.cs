@@ -1,5 +1,6 @@
 namespace Novolis.Math.Geometry;
 
+[Obsolete("Use Novolis.Math.Arrays.DenseGrid<T> and GridIndex for volumetric storage. This type will be removed in a future release.")]
 public class Grid<T>
 {
     private readonly T[,,] _board;
