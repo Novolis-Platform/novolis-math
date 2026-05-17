@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Numerics;
-using FluentAssertions;
 using Novolis.Math.Geometry;
 using TUnit.Core;
 
@@ -9,18 +8,18 @@ namespace Novolis.Math.Geometry.Tests;
 public class PolygonTest
 {
     [Test]
-    public void TestPolygonIntersectionCoplanar()
+    public async Task TestPolygonIntersectionCoplanar()
     {
         var polygon1 = PolygonFactory.CreateRectangle(4, 4, new Vector3(-1, 0, 0));
         var polygon2 = PolygonFactory.CreateRectangle(4, 4, new Vector3(1, 1, 0));
 
         var intersections = polygon1.GetIntersectionPoints(polygon2).ToList();
 
-        intersections.Should().NotBeEmpty();
+        await Assert.That(intersections).IsNotEmpty();
     }
 
     [Test]
-    public void TestPolygonIntersectionVolume()
+    public async Task TestPolygonIntersectionVolume()
     {
         var polygon1 = PolygonFactory.CreateCube(10);
         polygon1.Translate(new Vector3(5, 0, 0));
@@ -29,6 +28,6 @@ public class PolygonTest
 
         var intersections = polygon1.GetIntersectionPoints(polygon2).ToList();
 
-        intersections.Should().NotBeEmpty();
+        await Assert.That(intersections).IsNotEmpty();
     }
 }

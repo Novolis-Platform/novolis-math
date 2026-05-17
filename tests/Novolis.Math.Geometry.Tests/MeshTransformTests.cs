@@ -1,32 +1,32 @@
 using System.Numerics;
-using FluentAssertions;
 using Novolis.Math.Geometry;
+using TUnit.Core;
 
 namespace Novolis.Math.Geometry.Tests;
 
 public class MeshTransformTests
 {
     [Test]
-    public void Polygon_Translate_DoesNotMutateOriginalVertices()
+    public async Task Polygon_Translate_DoesNotMutateOriginalVertices()
     {
         var original = PolygonFactory.CreateRectangle(2f, 2f, Vector3.Zero);
         var v0Before = original[0];
 
         _ = original.Translate(new Vector3(10f, 0f, 0f));
 
-        original[0].Should().Be(v0Before);
+        await Assert.That(original[0]).IsEqualTo(v0Before);
     }
 
     [Test]
-    public void Polygon_EdgeCount_EqualsVertexCount_ForClosedLoop()
+    public async Task Polygon_EdgeCount_EqualsVertexCount_ForClosedLoop()
     {
         var cube = PolygonFactory.CreateCube(1f);
 
-        cube.Edges.Should().HaveCount(cube.Length);
+        await Assert.That(cube.Edges.Count()).IsEqualTo(cube.Length);
     }
 
     [Test]
-    public void Shape_Transform_AppliesScaleRotationThenTranslation()
+    public async Task Shape_Transform_AppliesScaleRotationThenTranslation()
     {
         var rect = PolygonFactory.CreateRectangle(2f, 2f, Vector3.Zero);
         var shape = new Shape { Polygon = rect, Color = Rgba32.White };
@@ -39,11 +39,11 @@ public class MeshTransformTests
 
         var world = shape.Transform(transform);
 
-        world.Polygon[0].Y.Should().BeApproximately(rect[0].Y + 5f, 0.001f);
+        await Assert.That(world.Polygon[0].Y).IsEqualTo(rect[0].Y + 5f).Within(0.001f);
     }
 
     [Test]
-    public void Shape_GetTransformedShape_UsesFullTransform()
+    public async Task Shape_GetTransformedShape_UsesFullTransform()
     {
         var rect = PolygonFactory.CreateRectangle(1f, 1f, Vector3.Zero);
         var shape = new Shape { Polygon = rect, Color = Rgba32.Red };
@@ -51,11 +51,11 @@ public class MeshTransformTests
 
         var world = shape.GetTransformedShape(transform);
 
-        world.Polygon.GetCenter().X.Should().BeApproximately(100f, 1f);
+        await Assert.That(world.Polygon.GetCenter().X).IsEqualTo(100f).Within(1f);
     }
 
     [Test]
-    public void Polygon_GetAxisAlignedBoundingBox_ContainsAllVertices()
+    public async Task Polygon_GetAxisAlignedBoundingBox_ContainsAllVertices()
     {
         var rect = PolygonFactory.CreateRectangle(4f, 2f, new Vector3(10f, 20f, 0f));
 
@@ -63,20 +63,20 @@ public class MeshTransformTests
 
         foreach (var v in rect)
         {
-            v.X.Should().BeInRange(min.X, max.X);
-            v.Y.Should().BeInRange(min.Y, max.Y);
-            v.Z.Should().BeInRange(min.Z, max.Z);
+            await Assert.That(v.X).IsGreaterThanOrEqualTo(min.X).And.IsLessThanOrEqualTo(max.X);
+            await Assert.That(v.Y).IsGreaterThanOrEqualTo(min.Y).And.IsLessThanOrEqualTo(max.Y);
+            await Assert.That(v.Z).IsGreaterThanOrEqualTo(min.Z).And.IsLessThanOrEqualTo(max.Z);
         }
     }
 
     [Test]
-    public void Camera_Up_IsMutable_ForCustomOrientation()
+    public async Task Camera_Up_IsMutable_ForCustomOrientation()
     {
         var camera = new Camera();
         var custom = Vector3.Normalize(new Vector3(0.2f, 1f, 0f));
 
         camera.Up = custom;
 
-        camera.Up.Should().Be(custom);
+        await Assert.That(camera.Up).IsEqualTo(custom);
     }
 }

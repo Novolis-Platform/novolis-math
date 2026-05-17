@@ -1,41 +1,41 @@
 using System.Numerics;
-using FluentAssertions;
 using Novolis.Math.Geometry;
+using TUnit.Core;
 
 namespace Novolis.Math.Geometry.Tests;
 
 public class PolygonFactoryTests
 {
     [Test]
-    public void CreateCube_SingleArg_HasEightVertices()
+    public async Task CreateCube_SingleArg_HasEightVertices()
     {
         var poly = PolygonFactory.CreateCube(2f);
 
-        poly.Length.Should().Be(8);
+        await Assert.That(poly.Length).IsEqualTo(8);
     }
 
     [Test]
-    public void CreateRectangle_HasFourVertices()
+    public async Task CreateRectangle_HasFourVertices()
     {
         var poly = PolygonFactory.CreateRectangle(4f, 2f, Vector3.Zero);
 
-        poly.Length.Should().Be(4);
+        await Assert.That(poly.Length).IsEqualTo(4);
     }
 
     [Test]
-    public void CreateLine_HasTwoVertices()
+    public async Task CreateLine_HasTwoVertices()
     {
         var poly = PolygonFactory.CreateLine(Vector3.Zero, Vector3.UnitX);
 
-        poly.Length.Should().Be(2);
+        await Assert.That(poly.Length).IsEqualTo(2);
     }
 
     [Test]
-    public void CreateCircle_HasExpectedVertexCount()
+    public async Task CreateCircle_HasExpectedVertexCount()
     {
         const int sides = 12;
         var poly = PolygonFactory.CreateCircle(sides, 1f, Vector3.Zero);
 
-        poly.Length.Should().Be(sides);
+        await Assert.That(poly.Length).IsEqualTo(sides);
     }
 }
