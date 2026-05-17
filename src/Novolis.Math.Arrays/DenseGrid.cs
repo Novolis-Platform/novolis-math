@@ -2,26 +2,28 @@ using System.Text;
 
 namespace Novolis.Math.Arrays;
 
-public partial class Array2D<T>
+public partial class DenseGrid<T>
 {
-    private readonly T?[,] _array;
+    private readonly T?[,,] _array;
 
     public uint Width { get; private set; }
     public uint Height { get; private set; }
+    public uint Depth { get; private set; }
 
-    public Array2D(uint width, uint height)
+    public DenseGrid(uint width, uint height, uint depth = 1)
     {
         Width = width;
         Height = height;
-        _array = new T?[width, height];
+        Depth = depth;
+        _array = new T?[height, width, depth];
     }
 
-    public string GetMap()
+    public string GetMap(uint z = 0)
     {
         var map = new bool[Width, Height];
         for (var i = 0u; i < Width; i++)
         for (var j = 0u; j < Height; j++)
-            if (_array.TryGetValue(new ArrayPosition2D(i, j), out var value) && value != null)
+            if (_array.TryGetValue(new GridIndex(i, j, z), out var value) && value != null)
                 map[i, j] = true;
             else
                 map[i, j] = false;
@@ -40,11 +42,16 @@ public partial class Array2D<T>
     public override string ToString()
     {
         var stringBuilder = new StringBuilder();
-        for (var i = 0u; i < Width; i++)
+        for (var z = 0u; z < Depth; z++)
         {
-            for (var j = 0u; j < Height; j++)
-                stringBuilder.Append($"[{this[i, j]}] ");
-            stringBuilder.Append(Environment.NewLine);
+            if (Depth > 1)
+                stringBuilder.AppendLine($"z={z}:");
+            for (var i = 0u; i < Width; i++)
+            {
+                for (var j = 0u; j < Height; j++)
+                    stringBuilder.Append($"[{this[i, j, z]}] ");
+                stringBuilder.Append(Environment.NewLine);
+            }
         }
 
         return stringBuilder.ToString();

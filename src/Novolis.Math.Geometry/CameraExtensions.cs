@@ -5,8 +5,7 @@ namespace Novolis.Math.Geometry;
 public static class CameraExtensions
 {
     /// <summary>
-    ///     Gets the projection matrix for the camera. A projection matrix is used to project 3D coordinates onto a 2D plane
-    ///     (the screen).
+    ///     Gets the projection matrix for the camera. Projects world coordinates into clip space for rasterization.
     /// </summary>
     /// <param name="camera"></param>
     /// <returns></returns>

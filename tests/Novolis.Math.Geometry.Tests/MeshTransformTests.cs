@@ -4,7 +4,7 @@ using Novolis.Math.Geometry;
 
 namespace Novolis.Math.Geometry.Tests;
 
-public class MeshTransform3DTests
+public class MeshTransformTests
 {
     [Test]
     public void Polygon_Translate_DoesNotMutateOriginalVertices()

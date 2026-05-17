@@ -3,7 +3,7 @@
     <PackageId>Novolis.Math.Arrays</PackageId>
     <Version>0.1.0-preview.1</Version>
     <IsPackable>true</IsPackable>
-    <Description>2D arrays and grid helpers for Novolis math libraries.</Description>
+    <Description>Volumetric dense grids and index helpers for Novolis math libraries.</Description>
     <RootNamespace>Novolis.Math.Arrays</RootNamespace>
   </PropertyGroup>
 </Project>

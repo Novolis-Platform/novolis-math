@@ -72,26 +72,10 @@ public static class Vector3Extensions
         return new Vector3((vector.X + other.X) / 2, (vector.Y + other.Y) / 2, (vector.Z + other.Z) / 2);
     }
 
-    /// <summary>
-    ///     Converts the vector to a Vector2 by dropping the Z component.
-    /// </summary>
-    /// <param name="vector"></param>
-    /// <returns></returns>
-    public static Vector2 ToVector2(this Vector3 vector)
-    {
-        return new Vector2(vector.X, vector.Y);
-    }
-    
-    /// <summary>
-    ///    Converts the vector to a Vector2 by dropping the Z component.
-    /// </summary>
-    /// <param name="vector"></param>
-    /// <param name="format"></param>
-    /// <returns></returns>
     public static string ToString(this Vector3 vector, string format) => $"({vector.X.ToString(format)}|{vector.Y.ToString(format)}|{vector.Z.ToString(format)})";
     
     /// <summary>
-    ///   Converts the vectors to a string by dropping the Z component.
+    ///   Formats a sequence of vectors for logging.
     /// </summary>
     /// <param name="vectors"></param>
     /// <param name="format"></param>

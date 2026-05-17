@@ -9,7 +9,7 @@ namespace Novolis.Math.Geometry.Tests;
 public class PolygonTest
 {
     [Test]
-    public void TestPolygonIntersection2D()
+    public void TestPolygonIntersectionCoplanar()
     {
         var polygon1 = PolygonFactory.CreateRectangle(4, 4, new Vector3(-1, 0, 0));
         var polygon2 = PolygonFactory.CreateRectangle(4, 4, new Vector3(1, 1, 0));
@@ -20,7 +20,7 @@ public class PolygonTest
     }
 
     [Test]
-    public void TestPolygonIntersection3D()
+    public void TestPolygonIntersectionVolume()
     {
         var polygon1 = PolygonFactory.CreateCube(10);
         polygon1.Translate(new Vector3(5, 0, 0));

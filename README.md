@@ -6,8 +6,8 @@ Novolis math libraries extracted from [Frank.GameEngine](https://github.com/fran
 
 | Package | Description |
 |---------|-------------|
-| `Novolis.Math.Arrays` | `Array2D<T>` and grid helpers |
-| `Novolis.Math.Geometry` | Polygons, meshes, transforms, cameras |
+| `Novolis.Math.Arrays` | `DenseGrid<T>` volumetric storage and `GridIndex` |
+| `Novolis.Math.Geometry` | Polygons, meshes, transforms, cameras (Vector3 throughout) |
 
 ## Build
 
