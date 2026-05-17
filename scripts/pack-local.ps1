@@ -4,7 +4,11 @@ param(
 )
 $ErrorActionPreference = "Stop"
 $Root = Split-Path $PSScriptRoot -Parent
+$PackPackageCache = Join-Path $Root "..\artifacts\nuget-packages-pack"
 New-Item -ItemType Directory -Force -Path $Feed | Out-Null
-dotnet pack (Join-Path $Root "Novolis.Math.slnx") -c Release -o $Feed /p:ContinuousIntegrationBuild=false
+New-Item -ItemType Directory -Force -Path $PackPackageCache | Out-Null
+$env:NUGET_PACKAGES = (Resolve-Path $PackPackageCache).Path
+dotnet build-server shutdown 2>$null | Out-Null
+dotnet pack (Join-Path $Root "Novolis.Math.slnx") -c Release -o $Feed /p:ContinuousIntegrationBuild=false /p:NovolisLocalPack=true
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 Write-Host "Packed Novolis.Math -> $Feed"
