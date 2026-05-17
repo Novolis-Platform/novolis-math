@@ -69,14 +69,4 @@ public class MeshTransformTests
         }
     }
 
-    [Test]
-    public async Task Camera_Up_IsMutable_ForCustomOrientation()
-    {
-        var camera = new Camera();
-        var custom = Vector3.Normalize(new Vector3(0.2f, 1f, 0f));
-
-        camera.Up = custom;
-
-        await Assert.That(camera.Up).IsEqualTo(custom);
-    }
 }

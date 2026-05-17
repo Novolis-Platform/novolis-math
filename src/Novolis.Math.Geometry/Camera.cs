@@ -2,53 +2,14 @@ using System.Numerics;
 
 namespace Novolis.Math.Geometry;
 
-/// <summary>
-///     A camera that defines the view of the scene.
-/// </summary>
+[Obsolete("Use Novolis.Simulation.View.Camera.")]
 public record Camera
 {
-    /// <summary>
-    ///     The position of the camera. Defaults to <see cref="Vector3.UnitZ" /> * 100.
-    /// </summary>
     public Vector3 Position { get; set; } = Vector3.UnitZ * 100;
-
-    /// <summary>
-    ///     The target of the camera. Defaults to <see cref="Vector3.Zero" />.
-    /// </summary>
     public Vector3 Target { get; set; } = Vector3.Zero;
-
-    /// <summary>
-    ///     The aspect ratio of the camera. Defaults to 1.6666666666f.
-    /// </summary>
     public float AspectRatio { get; set; } = 1.6666666666f;
-
-    /// <summary>
-    ///     The up vector of the camera. Defaults to <see cref="Vector3.UnitY" />.
-    /// </summary>
     public Vector3 Up { get; set; } = Vector3.UnitY;
-
-    /// <summary>
-    ///     The near plane distance of the camera. Defaults to 1f.
-    /// </summary>
     public float NearPlaneDistance { get; set; } = 1f;
-
-    /// <summary>
-    ///     The far plane distance of the camera. Defaults to 1_000f.
-    /// </summary>
     public float FarPlaneDistance { get; set; } = 1_000f;
-
-    /// <summary>
-    ///     Vertical field of view in degrees (e.g. 45–90). Used by MonoGame, Raylib, and
-    ///     <see cref="CameraExtensions.GetProjectionMatrix" />.
-    /// </summary>
     public float FieldOfView { get; set; } = 45f;
-
-    /// <summary>
-    ///     The view matrix of the camera.
-    /// </summary>
-    /// <returns></returns>
-    public override string ToString()
-    {
-        return $"Position: {Position}\nTarget: {Target}\nAspectRatio: {AspectRatio:N}";
-    }
 }

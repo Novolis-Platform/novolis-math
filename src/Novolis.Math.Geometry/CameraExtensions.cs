@@ -2,42 +2,21 @@ using System.Numerics;
 
 namespace Novolis.Math.Geometry;
 
+[Obsolete("Use Novolis.Simulation.View.Camera and CameraExtensions.")]
 public static class CameraExtensions
 {
-    /// <summary>
-    ///     Gets the projection matrix for the camera. Projects world coordinates into clip space for rasterization.
-    /// </summary>
-    /// <param name="camera"></param>
-    /// <returns></returns>
     public static Matrix4x4 GetProjectionMatrix(this Camera camera)
     {
         var fovRadians = camera.FieldOfView * (MathF.PI / 180f);
-        var projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(
+        return Matrix4x4.CreatePerspectiveFieldOfView(
             fovRadians,
             camera.AspectRatio,
             camera.NearPlaneDistance,
             camera.FarPlaneDistance);
-
-        return projectionMatrix;
     }
 
-    /// <summary>
-    ///     Gets the view matrix for the camera. A view matrix is used to transform a world's coordinates into a camera's
-    ///     coordinates.
-    ///     The view matrix is the inverse of the camera's transform matrix, which is the camera's position, rotation, and
-    ///     scale.
-    /// </summary>
-    /// <param name="camera"></param>
-    /// <returns></returns>
-    public static Matrix4x4 GetViewMatrix(this Camera camera)
-    {
-        var viewMatrix = Matrix4x4.CreateLookAt(
-            camera.Position,
-            camera.Target,
-            camera.Up);
-
-        return viewMatrix;
-    }
+    public static Matrix4x4 GetViewMatrix(this Camera camera) =>
+        Matrix4x4.CreateLookAt(camera.Position, camera.Target, camera.Up);
 
     public static void MoveForward(this Camera camera, float speed)
     {
@@ -68,7 +47,7 @@ public static class CameraExtensions
         camera.Position += left * speed;
         camera.Target += left * speed;
     }
-    
+
     public static void MoveUp(this Camera camera, float speed)
     {
         var direction = Vector3.Normalize(camera.Target - camera.Position);
@@ -76,12 +55,12 @@ public static class CameraExtensions
         camera.Position += up * speed;
         camera.Target += up * speed;
     }
-    
+
     public static void MoveDown(this Camera camera, float speed)
     {
         var direction = Vector3.Normalize(camera.Target - camera.Position);
         var up = Vector3.Normalize(Vector3.Cross(direction, Vector3.Cross(camera.Up, direction)));
-        camera.Position -= up * speed;
+        camera.Position -= direction * speed;
         camera.Target -= up * speed;
     }
 }

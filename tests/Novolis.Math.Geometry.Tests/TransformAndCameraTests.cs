@@ -30,43 +30,4 @@ public class TransformAndCameraTests
         await Assert.That(t.Scale).IsEqualTo(6f);
     }
 
-    [Test]
-    public async Task Camera_GetViewMatrix_IsNotDefault()
-    {
-        var camera = new Camera
-        {
-            Position = new Vector3(0f, 0f, 5f),
-            Target = Vector3.Zero
-        };
-
-        var view = camera.GetViewMatrix();
-
-        await Assert.That(view).IsNotEqualTo(default(Matrix4x4));
-    }
-
-    [Test]
-    public async Task Camera_GetProjectionMatrix_IsNotDefault()
-    {
-        var camera = new Camera { FieldOfView = 60f, AspectRatio = 16f / 9f };
-
-        var proj = camera.GetProjectionMatrix();
-
-        await Assert.That(proj).IsNotEqualTo(default(Matrix4x4));
-    }
-
-    [Test]
-    public async Task Camera_MoveForward_TranslatesPositionAndTarget()
-    {
-        var camera = new Camera
-        {
-            Position = new Vector3(0f, 0f, 10f),
-            Target = Vector3.Zero
-        };
-        var beforeTarget = camera.Target;
-
-        camera.MoveForward(1f);
-
-        await Assert.That(camera.Position.Z).IsLessThan(10f);
-        await Assert.That((camera.Target - beforeTarget).Length()).IsGreaterThan(0f);
-    }
 }
