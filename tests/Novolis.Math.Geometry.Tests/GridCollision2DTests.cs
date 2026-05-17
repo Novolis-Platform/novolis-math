@@ -72,4 +72,94 @@ public class GridCollision2DTests
         map.Set(new GridIndex(1, 2), 1);
         await Assert.That(GridCollision2D.HasLineOfSight(map, new Vector2(0.5f, 0.5f), new Vector2(3.5f, 3.5f))).IsFalse();
     }
+
+    [Test]
+    public async Task HasLineOfSight_TwoCellWideCorridor_WithClearance_ReturnsTrue()
+    {
+        var map = new DenseGrid<byte>(7, 5);
+        map.Set(new GridIndex(0, 0), 1);
+        map.Set(new GridIndex(0, 1), 1);
+        map.Set(new GridIndex(0, 2), 1);
+        map.Set(new GridIndex(0, 3), 1);
+        map.Set(new GridIndex(0, 4), 1);
+        map.Set(new GridIndex(6, 0), 1);
+        map.Set(new GridIndex(6, 1), 1);
+        map.Set(new GridIndex(6, 2), 1);
+        map.Set(new GridIndex(6, 3), 1);
+        map.Set(new GridIndex(6, 4), 1);
+
+        await Assert.That(
+                GridCollision2D.HasLineOfSight(
+                    map,
+                    new Vector2(1.5f, 2.5f),
+                    new Vector2(4.5f, 2.5f),
+                    clearanceRadius: 0.4f))
+            .IsTrue();
+    }
+
+    [Test]
+    public async Task HasLineOfSight_SingleCellGap_WithClearance_ReturnsFalse()
+    {
+        var map = new DenseGrid<byte>(5, 5);
+        map.Set(new GridIndex(2, 0), 1);
+        map.Set(new GridIndex(2, 1), 1);
+        map.Set(new GridIndex(2, 2), 1);
+        map.Set(new GridIndex(2, 3), 1);
+        map.Set(new GridIndex(2, 4), 1);
+
+        await Assert.That(
+                GridCollision2D.HasLineOfSight(
+                    map,
+                    new Vector2(0.5f, 2.5f),
+                    new Vector2(4.5f, 2.5f),
+                    clearanceRadius: 0.45f))
+            .IsFalse();
+    }
+
+    [Test]
+    public async Task PushOutOfWalls_FromInsideWall_MovesToOpenFloor()
+    {
+        var map = new DenseGrid<byte>(5, 5);
+        map.Set(new GridIndex(2, 2), 1);
+
+        var pushed = GridCollision2D.PushOutOfWalls(map, new Vector2(2.5f, 2.5f), 0.3f);
+        await Assert.That(GridCollision2D.OverlapsWall(map, pushed, 0.3f)).IsFalse();
+    }
+
+    [Test]
+    public async Task TryRaycastWall_HitsWallBeforeOpenEnd()
+    {
+        var map = new DenseGrid<byte>(5, 5);
+        map.Set(new GridIndex(2, 0), 1);
+        map.Set(new GridIndex(2, 1), 1);
+        map.Set(new GridIndex(2, 2), 1);
+        map.Set(new GridIndex(2, 3), 1);
+        map.Set(new GridIndex(2, 4), 1);
+
+        var hit = GridCollision2D.TryRaycastWall(
+            map,
+            new Vector2(0.5f, 2.5f),
+            new Vector2(1f, 0f),
+            maxDistance: 10f,
+            cellSize: 1f,
+            out var hitDistance);
+
+        await Assert.That(hit).IsTrue();
+        await Assert.That(hitDistance).IsLessThan(2.5f);
+    }
+
+    [Test]
+    public async Task TryRaycastWall_OpenCorridor_ReturnsFalse()
+    {
+        var map = new DenseGrid<byte>(5, 5);
+        var hit = GridCollision2D.TryRaycastWall(
+            map,
+            new Vector2(0.5f, 0.5f),
+            new Vector2(1f, 0f),
+            maxDistance: 3f,
+            cellSize: 1f,
+            out _);
+
+        await Assert.That(hit).IsFalse();
+    }
 }
