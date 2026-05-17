@@ -1,13 +1,16 @@
 # novolis-math
 
-Novolis math libraries extracted from [Frank.GameEngine](https://github.com/frankhaugen/Frank.GameEngine) primitives (wave 7).
+Novolis **Math** (wave 7): numerics, geometry, and topology facets. **No time, no cameras** — those belong to Physics and Simulation.
+
+Policy: [library-boundaries.md](https://github.com/Novolis-Platform/novolis-governance/blob/main/docs/library-boundaries.md).
 
 ## Packages
 
 | Package | Description |
 |---------|-------------|
 | `Novolis.Math.Arrays` | `DenseGrid<T>` volumetric storage and `GridIndex` |
-| `Novolis.Math.Geometry` | Polygons, meshes, transforms, cameras (Vector3 throughout) |
+| `Novolis.Math.Geometry` | Meshes, primitives, transforms, intersections, BVH |
+| `Novolis.Math.Topology` | *(planned)* connectivity / topological structure |
 
 ## Build
 
