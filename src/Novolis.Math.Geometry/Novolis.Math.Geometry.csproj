@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageId>Novolis.Math.Geometry</PackageId>
+    <Version>0.1.0-preview.1</Version>
+    <IsPackable>true</IsPackable>
+    <Description>Geometry primitives, transforms, and cameras for Novolis games and simulation.</Description>
+    <RootNamespace>Novolis.Math.Geometry</RootNamespace>
+  </PropertyGroup>
+</Project>

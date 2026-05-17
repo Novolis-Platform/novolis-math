@@ -1,32 +1,21 @@
-# Math
+# novolis-math
 
-## What it is
+Novolis math libraries extracted from [Frank.GameEngine](https://github.com/frankhaugen/Frank.GameEngine) primitives (wave 7).
 
-Math in the Novolis ecosystem.
+## Packages
 
-## Current status
+| Package | Description |
+|---------|-------------|
+| `Novolis.Math.Arrays` | `Array2D<T>` and grid helpers |
+| `Novolis.Math.Geometry` | Polygons, meshes, transforms, cameras |
 
-This repository is reserved for the Novolis Math package.
-Implementation will be migrated or built in later steps.
+## Build
 
-## Install
+```bash
+dotnet build Novolis.Math.slnx
+dotnet test Novolis.Math.slnx
+```
 
-Not yet published.
+## Source policy
 
-## Quick start
-
-Not yet available.
-
-## Documentation
-
-- [Getting started](docs/getting-started.md)
-- [Design](docs/design.md)
-- [Release](docs/release.md)
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## Security
-
-See [SECURITY.md](SECURITY.md).
+Frank.GameEngine remains active on the author's GitHub; only renderer-agnostic primitives were migrated. See [gameengine-reference-policy](https://github.com/Novolis-Platform/novolis-governance/blob/main/docs/gameengine-reference-policy.md).

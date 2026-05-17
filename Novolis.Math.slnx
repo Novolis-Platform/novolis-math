@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Novolis.Math.Arrays/Novolis.Math.Arrays.csproj" />
+    <Project Path="src/Novolis.Math.Geometry/Novolis.Math.Geometry.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Novolis.Math.Arrays.Tests/Novolis.Math.Arrays.Tests.csproj" />
+    <Project Path="tests/Novolis.Math.Geometry.Tests/Novolis.Math.Geometry.Tests.csproj" />
+  </Folder>
+</Solution>

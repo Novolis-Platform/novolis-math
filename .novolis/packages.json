@@ -1,14 +1,24 @@
 {
   "packages": {
-    "Novolis.Math": {
+    "Novolis.Math.Arrays": {
       "paths": [
-        "src/Novolis.Math/**",
-        "tests/**",
+        "src/Novolis.Math.Arrays/**",
+        "tests/Novolis.Math.Arrays.Tests/**",
         "Directory.Build.props",
         "Directory.Packages.props",
         "global.json"
       ],
-      "project": "src/Novolis.Math/Novolis.Math.csproj"
+      "project": "src/Novolis.Math.Arrays/Novolis.Math.Arrays.csproj"
+    },
+    "Novolis.Math.Geometry": {
+      "paths": [
+        "src/Novolis.Math.Geometry/**",
+        "tests/Novolis.Math.Geometry.Tests/**",
+        "Directory.Build.props",
+        "Directory.Packages.props",
+        "global.json"
+      ],
+      "project": "src/Novolis.Math.Geometry/Novolis.Math.Geometry.csproj"
     }
   }
 }
