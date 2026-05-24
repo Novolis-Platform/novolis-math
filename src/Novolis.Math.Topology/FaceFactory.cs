@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
 using System.Numerics;
 
-namespace Novolis.Math.Geometry;
+namespace Novolis.Math.Topology;
 
 /// <summary>
 ///     A factory for creating faces. A face is a triangle between three points.

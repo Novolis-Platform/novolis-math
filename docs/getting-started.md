@@ -1,11 +1,12 @@
 # Getting started
 
-`novolis-math` ships two NuGet packages on the Math layer of the Novolis stack (no time step, no cameras).
+`novolis-math` ships NuGet packages on the Math layer of the Novolis stack (no time step, no cameras).
 
 ## Install
 
 ```bash
 dotnet add package Novolis.Math.Arrays
+dotnet add package Novolis.Math.Topology
 dotnet add package Novolis.Math.Geometry
 ```
 
@@ -16,7 +17,10 @@ Restore from GitHub Packages (`2026.1.*`) per [novolis-governance package policy
 | Package | Role |
 |---------|------|
 | `Novolis.Math.Arrays` | `DenseGrid<T>` and `GridIndex` for volumetric data |
+| `Novolis.Math.Topology` | `Polygon`, `Face`, `Edge`, connectivity factories |
 | `Novolis.Math.Geometry` | Primitives, meshes, transforms, ray tests, triangle BVH |
+
+`Novolis.Math.Geometry` references Topology transitively when you only need mesh/ray APIs.
 
 ## Build and test
 

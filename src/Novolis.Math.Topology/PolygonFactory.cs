@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace Novolis.Math.Geometry;
+namespace Novolis.Math.Topology;
 
 /// <summary>Factory methods for procedural <see cref="Polygon"/> meshes.</summary>
 public static partial class PolygonFactory

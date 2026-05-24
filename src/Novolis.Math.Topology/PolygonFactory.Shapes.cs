@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace Novolis.Math.Geometry;
+namespace Novolis.Math.Topology;
 
 public static partial class PolygonFactory
 {

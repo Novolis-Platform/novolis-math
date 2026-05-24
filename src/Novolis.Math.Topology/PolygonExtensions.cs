@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
 using System.Numerics;
 
-namespace Novolis.Math.Geometry;
+namespace Novolis.Math.Topology;
 
 /// <summary>Transform, intersection, and bounds helpers for <see cref="Polygon"/>.</summary>
 public static class PolygonExtensions

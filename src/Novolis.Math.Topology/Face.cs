@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace Novolis.Math.Geometry;
+namespace Novolis.Math.Topology;
 
 /// <summary>
 ///     Represents a face between three points.

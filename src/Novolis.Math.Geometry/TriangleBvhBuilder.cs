@@ -91,7 +91,7 @@ public static class TriangleBvhBuilder
         centroid = (v0 + v1 + v2) / 3f;
     }
 
-    private static AxisAlignedBox3 ComputeBounds(Vector3[] vertices, int[] triangleIndices, int[] order, int offset, int count)
+    private static AxisAlignedBox ComputeBounds(Vector3[] vertices, int[] triangleIndices, int[] order, int offset, int count)
     {
         TriangleBounds(vertices, triangleIndices, order[offset], out var b);
         for (var i = 1; i < count; i++)
@@ -103,18 +103,18 @@ public static class TriangleBvhBuilder
         return b;
     }
 
-    private static void TriangleBounds(Vector3[] vertices, int[] triangleIndices, int triangleIndex, out AxisAlignedBox3 box)
+    private static void TriangleBounds(Vector3[] vertices, int[] triangleIndices, int triangleIndex, out AxisAlignedBox box)
     {
         var i = triangleIndex * 3;
         var v0 = vertices[triangleIndices[i]];
         var v1 = vertices[triangleIndices[i + 1]];
         var v2 = vertices[triangleIndices[i + 2]];
-        box = AxisAlignedBox3.FromMinMax(v0, v0);
-        box = AxisAlignedBox3.Expand(box, v1);
-        box = AxisAlignedBox3.Expand(box, v2);
+        box = AxisAlignedBox.FromMinMax(v0, v0);
+        box = AxisAlignedBox.Expand(box, v1);
+        box = AxisAlignedBox.Expand(box, v2);
     }
 
-    private static int LongestAxis(AxisAlignedBox3 b)
+    private static int LongestAxis(AxisAlignedBox b)
     {
         var e = b.Max - b.Min;
         if (e.X >= e.Y && e.X >= e.Z)
@@ -125,8 +125,8 @@ public static class TriangleBvhBuilder
         return e.Y >= e.Z ? 1 : 2;
     }
 
-    private static AxisAlignedBox3 Union(AxisAlignedBox3 a, AxisAlignedBox3 b) =>
-        AxisAlignedBox3.FromMinMax(
+    private static AxisAlignedBox Union(AxisAlignedBox a, AxisAlignedBox b) =>
+        AxisAlignedBox.FromMinMax(
             new Vector3(MathF.Min(a.Min.X, b.Min.X), MathF.Min(a.Min.Y, b.Min.Y), MathF.Min(a.Min.Z, b.Min.Z)),
             new Vector3(MathF.Max(a.Max.X, b.Max.X), MathF.Max(a.Max.Y, b.Max.Y), MathF.Max(a.Max.Z, b.Max.Z)));
 }

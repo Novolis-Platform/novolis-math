@@ -3,7 +3,7 @@ using System.Numerics;
 namespace Novolis.Math.Geometry;
 
 /// <summary>Sphere with center and radius in world space.</summary>
-public readonly struct Sphere3(Vector3 center, float radius)
+public readonly struct Sphere(Vector3 center, float radius)
 {
     /// <summary>Center in world space.</summary>
     public Vector3 Center { get; } = center;

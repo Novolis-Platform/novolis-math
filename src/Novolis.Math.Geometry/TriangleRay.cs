@@ -17,14 +17,14 @@ public static class TriangleRay
     /// <param name="distance">Hit distance when returning <see langword="true"/>.</param>
     /// <param name="normal">Face normal oriented against the ray direction.</param>
     /// <returns><see langword="true"/> if the ray intersects the triangle.</returns>
-    public static bool TryHit(in Ray3 ray, Vector3 v0, Vector3 v1, Vector3 v2, float maxDistance, out float distance, out Vector3 normal)
+    public static bool TryHit(in Ray ray, Vector3 v0, Vector3 v1, Vector3 v2, float maxDistance, out float distance, out Vector3 normal)
     {
         distance = 0f;
         var e1 = v1 - v0;
         var e2 = v2 - v0;
         normal = Vector3.Normalize(Vector3.Cross(e1, e2));
 
-        const float epsilon = 1e-7f;
+        var epsilon = GeometryConstants.RayTriangleEpsilon;
         var h = Vector3.Cross(ray.Direction, e2);
         var a = Vector3.Dot(e1, h);
         if (MathF.Abs(a) < epsilon)

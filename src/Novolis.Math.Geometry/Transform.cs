@@ -5,6 +5,7 @@ namespace Novolis.Math.Geometry;
 /// <summary>
 ///     Represents a transform. A transform is a position, rotation, and scale.
 /// </summary>
+[Obsolete("Use RigidTransform.", error: false)]
 public class Transform
 {
     /// <summary>

@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <NoWarn>$(NoWarn);CS0618</NoWarn>
     <RootNamespace>Novolis.Math.Unit</RootNamespace>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
@@ -10,6 +11,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/Novolis.Math.Arrays/Novolis.Math.Arrays.csproj" />
+    <ProjectReference Include="../../src/Novolis.Math.Topology/Novolis.Math.Topology.csproj" />
     <ProjectReference Include="../../src/Novolis.Math.Geometry/Novolis.Math.Geometry.csproj" />
   </ItemGroup>
 </Project>

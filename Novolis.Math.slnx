@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/Novolis.Math.Arrays/Novolis.Math.Arrays.csproj" />
+    <Project Path="src/Novolis.Math.Topology/Novolis.Math.Topology.csproj" />
     <Project Path="src/Novolis.Math.Geometry/Novolis.Math.Geometry.csproj" />
   </Folder>
   <Folder Name="/tests/">

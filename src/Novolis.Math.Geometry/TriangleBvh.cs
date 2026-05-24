@@ -4,7 +4,7 @@ namespace Novolis.Math.Geometry;
 
 /// <summary>Binary BVH node for triangle acceleration (structure only).</summary>
 public readonly record struct TriangleBvhNode(
-    AxisAlignedBox3 Bounds,
+    AxisAlignedBox Bounds,
     int TriangleOrderOffset,
     int TriangleCount,
     int LeftChild,
@@ -70,114 +70,25 @@ public sealed class TriangleBvh
     /// <param name="normal">Interpolated face normal.</param>
     /// <param name="triangleIndex">Logical triangle index of the hit, or <c>-1</c>.</param>
     /// <returns><see langword="true"/> if a triangle was hit.</returns>
-    public bool Raycast(in Ray3 ray, float maxDistance, out float distance, out Vector3 point, out Vector3 normal, out int triangleIndex)
+    public bool Raycast(in Ray ray, float maxDistance, out float distance, out Vector3 point, out Vector3 normal, out int triangleIndex)
     {
-        distance = 0f;
-        point = default;
-        normal = default;
-        triangleIndex = -1;
-        if (RootIndex < 0)
-        {
-            return false;
-        }
-
-        var bestT = maxDistance;
-        var found = false;
-        Traverse(RootIndex, in ray, maxDistance, ref bestT, ref found, ref distance, ref point, ref normal, ref triangleIndex);
+        var found = BvhRaycast.Traverse(
+            Nodes,
+            TriangleOrder,
+            RootIndex,
+            in ray,
+            maxDistance,
+            TryHitTriangle,
+            out distance,
+            out normal,
+            out triangleIndex);
+        point = found ? ray.PointAt(distance) : default;
         return found;
     }
 
-    private void Traverse(
-        int nodeIndex,
-        in Ray3 ray,
-        float maxDistance,
-        ref float bestT,
-        ref bool found,
-        ref float bestDistance,
-        ref Vector3 bestPoint,
-        ref Vector3 bestNormal,
-        ref int bestTriangle)
+    private bool TryHitTriangle(int triangleIndex, in Ray ray, float maxDistance, out float distance, out Vector3 normal)
     {
-        ref readonly var node = ref Nodes[nodeIndex];
-        if (!RaySlabIntersect(node.Bounds, ray.Origin, ray.Direction, 0f, maxDistance, out var tEnter, out var tExit))
-        {
-            return;
-        }
-
-        if (tExit < 0f || tEnter > bestT)
-        {
-            return;
-        }
-
-        if (node.IsLeaf)
-        {
-            for (var i = 0; i < node.TriangleCount; i++)
-            {
-                var tri = TriangleOrder[node.TriangleOrderOffset + i];
-                GetTriangle(tri, out var v0, out var v1, out var v2);
-                if (!TriangleRay.TryHit(in ray, v0, v1, v2, bestT, out var t, out var n))
-                {
-                    continue;
-                }
-
-                found = true;
-                bestT = t;
-                bestDistance = t;
-                bestPoint = ray.PointAt(t);
-                bestNormal = n;
-                bestTriangle = tri;
-            }
-
-            return;
-        }
-
-        Traverse(node.LeftChild, in ray, maxDistance, ref bestT, ref found, ref bestDistance, ref bestPoint, ref bestNormal, ref bestTriangle);
-        Traverse(node.RightChild, in ray, maxDistance, ref bestT, ref found, ref bestDistance, ref bestPoint, ref bestNormal, ref bestTriangle);
-    }
-
-    private static bool RaySlabIntersect(
-        AxisAlignedBox3 box,
-        Vector3 origin,
-        Vector3 dir,
-        float minT,
-        float maxT,
-        out float tEnter,
-        out float tExit)
-    {
-        tEnter = minT;
-        tExit = maxT;
-        for (var axis = 0; axis < 3; axis++)
-        {
-            var o = axis == 0 ? origin.X : axis == 1 ? origin.Y : origin.Z;
-            var d = axis == 0 ? dir.X : axis == 1 ? dir.Y : dir.Z;
-            var min = axis == 0 ? box.Min.X : axis == 1 ? box.Min.Y : box.Min.Z;
-            var max = axis == 0 ? box.Max.X : axis == 1 ? box.Max.Y : box.Max.Z;
-            if (MathF.Abs(d) < 1e-15f)
-            {
-                if (o < min || o > max)
-                {
-                    return false;
-                }
-
-                continue;
-            }
-
-            var invD = 1f / d;
-            var t0 = (min - o) * invD;
-            var t1 = (max - o) * invD;
-            if (t0 > t1)
-            {
-                (t0, t1) = (t1, t0);
-            }
-
-            tEnter = MathF.Max(tEnter, t0);
-            tExit = MathF.Min(tExit, t1);
-            if (tEnter > tExit)
-            {
-                return false;
-            }
-        }
-
-        return true;
+        GetTriangle(triangleIndex, out var v0, out var v1, out var v2);
+        return TriangleRay.TryHit(in ray, v0, v1, v2, maxDistance, out distance, out normal);
     }
 }

@@ -3,7 +3,7 @@ using System.Numerics;
 namespace Novolis.Math.Geometry;
 
 /// <summary>Ray from <see cref="Origin"/> along <see cref="Direction"/> (prefer unit direction for distance semantics).</summary>
-public readonly struct Ray3(Vector3 origin, Vector3 direction)
+public readonly struct Ray(Vector3 origin, Vector3 direction)
 {
     /// <summary>Ray origin in world space.</summary>
     public Vector3 Origin { get; } = origin;

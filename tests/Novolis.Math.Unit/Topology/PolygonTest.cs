@@ -1,9 +1,9 @@
 using System.Linq;
 using System.Numerics;
-using Novolis.Math.Geometry;
+using Novolis.Math.Topology;
 using TUnit.Core;
 
-namespace Novolis.Math.Geometry.Tests;
+namespace Novolis.Math.Topology.Tests;
 
 public class PolygonTest
 {

@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageId>Novolis.Math.Topology</PackageId>
+    <IsPackable>true</IsPackable>
+    <Description>Connectivity primitives (polygon, face, edge) for Novolis math libraries.</Description>
+    <RootNamespace>Novolis.Math.Topology</RootNamespace>
+  </PropertyGroup>
+</Project>

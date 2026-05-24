@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace Novolis.Math.Geometry;
+namespace Novolis.Math.Topology;
 
 /// <summary>Geometric utilities for <see cref="Face"/>.</summary>
 public static class FaceExtensions

@@ -1,11 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\Novolis.Math.Arrays\Novolis.Math.Arrays.csproj" />
+    <ProjectReference Include="..\Novolis.Math.Topology\Novolis.Math.Topology.csproj" />
   </ItemGroup>
   <PropertyGroup>
+    <NoWarn>$(NoWarn);CS0618</NoWarn>
     <PackageId>Novolis.Math.Geometry</PackageId>
 <IsPackable>true</IsPackable>
-    <Description>Geometry primitives, transforms, and cameras for Novolis games and simulation.</Description>
+    <Description>Geometry primitives, transforms, intersections, and BVH for Novolis stack libraries.</Description>
     <RootNamespace>Novolis.Math.Geometry</RootNamespace>
   </PropertyGroup>
 </Project>

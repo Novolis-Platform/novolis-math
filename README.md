@@ -26,7 +26,7 @@ Policy: [library-boundaries.md](https://github.com/Novolis-Platform/novolis-gove
 |---------|-------------|
 | `Novolis.Math.Arrays` | `DenseGrid<T>` volumetric storage and `GridIndex` |
 | `Novolis.Math.Geometry` | Meshes, primitives, transforms, intersections, BVH |
-| `Novolis.Math.Topology` | *(planned)* connectivity / topological structure |
+| `Novolis.Math.Topology` | Polygon, face, edge connectivity |
 
 ## Build
 

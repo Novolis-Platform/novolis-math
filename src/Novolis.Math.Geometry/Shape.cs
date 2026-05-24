@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace Novolis.Math.Geometry;
 
 /// <summary>
@@ -8,7 +10,7 @@ public class Shape
     /// <summary>
     ///     A polygon is a shape of vertices.
     /// </summary>
-    public Polygon Polygon { get; set; } = new();
+    public Polygon Polygon { get; set; } = new(Array.Empty<Vector3>());
 
     /// <summary>
     ///     Optional indexed triangle mesh (OBJ/FBX/glTF). When set, renderers draw this instead of fan-triangles from

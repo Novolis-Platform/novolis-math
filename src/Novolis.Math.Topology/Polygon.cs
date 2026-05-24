@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Numerics;
 
-namespace Novolis.Math.Geometry;
+namespace Novolis.Math.Topology;
 
 /// <summary>
 ///     Represents a polygon. A polygon is a shape of vertices.
