@@ -3,7 +3,7 @@
     "Novolis.Math.Arrays": {
       "paths": [
         "src/Novolis.Math.Arrays/**",
-        "tests/Novolis.Math.Arrays.Tests/**",
+        "tests/Novolis.Math.Unit/Arrays/**",
         "Directory.Build.props",
         "Directory.Packages.props",
         "global.json"
@@ -13,7 +13,7 @@
     "Novolis.Math.Geometry": {
       "paths": [
         "src/Novolis.Math.Geometry/**",
-        "tests/Novolis.Math.Geometry.Tests/**",
+        "tests/Novolis.Math.Unit/Geometry/**",
         "Directory.Build.props",
         "Directory.Packages.props",
         "global.json"

@@ -1,11 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <RootNamespace>Novolis.Math.Unit</RootNamespace>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" />
     <PackageReference Include="TUnit" />
-    <ProjectReference Include="..\..\src\Novolis.Math.Arrays\Novolis.Math.Arrays.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/Novolis.Math.Arrays/Novolis.Math.Arrays.csproj" />
+    <ProjectReference Include="../../src/Novolis.Math.Geometry/Novolis.Math.Geometry.csproj" />
   </ItemGroup>
 </Project>
