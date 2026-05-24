@@ -6,7 +6,7 @@ namespace Novolis.Math.Unit.Geometry;
 public class SlabIntersectTests
 {
     [Test]
-    public void Ray_hits_unit_cube_center()
+    public async Task Ray_hits_unit_cube_center()
     {
         var hit = SlabIntersect.RayBox(
             Vector3.Zero,
@@ -15,6 +15,6 @@ public class SlabIntersectTests
             Vector3.UnitZ,
             0f,
             float.MaxValue);
-        Assert.That(hit).IsTrue();
+        await Assert.That(hit).IsTrue();
     }
 }
