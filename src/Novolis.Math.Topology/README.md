@@ -10,6 +10,22 @@ dotnet add package Novolis.Math.Topology
 
 **Prerequisites:** [.NET 10 SDK](https://dotnet.microsoft.com/download) (`net10.0`).
 
+## Quick start
+
+```csharp
+using Novolis.Math.Topology;
+using System.Numerics;
+
+var quad = PolygonFactory.Quad(
+    new Vector3(0, 0, 0),
+    new Vector3(1, 0, 0),
+    new Vector3(1, 0, 1),
+    new Vector3(0, 0, 1));
+
+foreach (var edge in quad.Edges)
+    Console.WriteLine(edge);
+```
+
 ## Related packages
 
 | Package | When to use |
