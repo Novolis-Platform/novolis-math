@@ -1,0 +1,12 @@
+name: Republish NuGet as public
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  republish:
+    uses: Novolis-Platform/novolis-workflows/.github/workflows/republish-nuget-public.yml@main
