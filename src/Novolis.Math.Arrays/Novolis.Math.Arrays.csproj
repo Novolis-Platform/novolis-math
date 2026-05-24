@@ -1,8 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>Novolis.Math.Arrays</PackageId>
-    <Version>0.3.0-local</Version>
-    <IsPackable>true</IsPackable>
+<IsPackable>true</IsPackable>
     <Description>Volumetric dense grids and index helpers for Novolis math libraries.</Description>
     <RootNamespace>Novolis.Math.Arrays</RootNamespace>
   </PropertyGroup>

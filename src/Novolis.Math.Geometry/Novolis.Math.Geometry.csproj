@@ -4,8 +4,7 @@
   </ItemGroup>
   <PropertyGroup>
     <PackageId>Novolis.Math.Geometry</PackageId>
-    <Version>0.3.0-local</Version>
-    <IsPackable>true</IsPackable>
+<IsPackable>true</IsPackable>
     <Description>Geometry primitives, transforms, and cameras for Novolis games and simulation.</Description>
     <RootNamespace>Novolis.Math.Geometry</RootNamespace>
   </PropertyGroup>
