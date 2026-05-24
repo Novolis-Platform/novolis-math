@@ -30,12 +30,7 @@ public class MeshTransformTests
     {
         var rect = PolygonFactory.CreateRectangle(2f, 2f, Vector3.Zero);
         var shape = new Shape { Polygon = rect, Color = Rgba32.White };
-        var transform = new Transform
-        {
-            Position = new Vector3(0f, 5f, 0f),
-            Rotation = Quaternion.Identity,
-            Scale = 1f
-        };
+        var transform = RigidTransform.FromPose(new Vector3(0f, 5f, 0f), Quaternion.Identity);
 
         var world = shape.Transform(transform);
 
@@ -47,7 +42,7 @@ public class MeshTransformTests
     {
         var rect = PolygonFactory.CreateRectangle(1f, 1f, Vector3.Zero);
         var shape = new Shape { Polygon = rect, Color = Rgba32.Red };
-        var transform = new Transform { Position = new Vector3(100f, 0f, 0f) };
+        var transform = RigidTransform.FromPosition(new Vector3(100f, 0f, 0f));
 
         var world = shape.GetTransformedShape(transform);
 

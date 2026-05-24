@@ -4,30 +4,29 @@ using TUnit.Core;
 
 namespace Novolis.Math.Geometry.Tests;
 
-public class TransformAndCameraTests
+public class RigidTransformTests
 {
     [Test]
-    public async Task Translate_AddsToPosition()
+    public async Task Translated_AddsToPosition()
     {
-        var t = new Transform { Position = new Vector3(1f, 2f, 3f) };
-        t.Translate(new Vector3(4f, 5f, 6f));
-        await Assert.That(t.Position).IsEqualTo(new Vector3(5f, 7f, 9f));
+        var t = RigidTransform.FromPosition(new Vector3(1f, 2f, 3f));
+        var moved = t.Translated(new Vector3(4f, 5f, 6f));
+        await Assert.That(moved.Position).IsEqualTo(new Vector3(5f, 7f, 9f));
     }
 
     [Test]
-    public async Task MoveTo_ReplacesPosition()
+    public async Task MovedTo_ReplacesPosition()
     {
-        var t = new Transform { Position = Vector3.One };
-        t.MoveTo(Vector3.Zero);
-        await Assert.That(t.Position).IsEqualTo(Vector3.Zero);
+        var t = RigidTransform.FromPosition(Vector3.One);
+        var moved = t.MovedTo(Vector3.Zero);
+        await Assert.That(moved.Position).IsEqualTo(Vector3.Zero);
     }
 
     [Test]
-    public async Task ScaleBy_MultipliesScale()
+    public async Task ScaledBy_MultipliesScale()
     {
-        var t = new Transform { Scale = 2f };
-        t.ScaleBy(3f);
-        await Assert.That(t.Scale).IsEqualTo(6f);
+        var t = RigidTransform.FromPosition(Vector3.Zero, uniformScale: 2f);
+        var scaled = t.ScaledBy(3f);
+        await Assert.That(scaled.UniformScale).IsEqualTo(6f);
     }
-
 }

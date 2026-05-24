@@ -17,6 +17,14 @@ public readonly struct RigidTransform(Vector3 position, Quaternion rotation, flo
     /// <summary>Identity transform.</summary>
     public static RigidTransform Identity => new(Vector3.Zero, Quaternion.Identity, 1f);
 
+    /// <summary>Translation only.</summary>
+    public static RigidTransform FromPosition(Vector3 position, float uniformScale = 1f) =>
+        new(position, Quaternion.Identity, uniformScale);
+
+    /// <summary>Full pose.</summary>
+    public static RigidTransform FromPose(Vector3 position, Quaternion rotation, float uniformScale = 1f) =>
+        new(position, rotation, uniformScale);
+
     /// <summary>Builds an affine matrix (scale, rotation, translation).</summary>
     /// <returns>World matrix.</returns>
     public Matrix4x4 ToMatrix4x4()

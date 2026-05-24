@@ -9,7 +9,7 @@ public static class ShapeExtensions
     /// <param name="shape">Source shape.</param>
     /// <param name="transform">Transform to apply.</param>
     /// <returns>Transformed shape.</returns>
-    public static Shape GetTransformedShape(this Shape shape, Transform transform) => shape.Transform(transform);
+    public static Shape GetTransformedShape(this Shape shape, RigidTransform transform) => shape.Transform(transform);
 
     /// <summary>
     /// Axis-aligned bounds of <see cref="Polygon" /> and/or <see cref="Shape.TriangleMesh" /> (union when both).
@@ -78,11 +78,11 @@ public static class ShapeExtensions
     /// <summary>
     /// Applies scale (around the origin), rotation, then translation — typical for model vertices in local space.
     /// </summary>
-    public static Shape Transform(this Shape shape, Transform transform)
+    public static Shape Transform(this Shape shape, RigidTransform transform)
     {
         var result = shape.GetCopy();
-        if (System.Math.Abs(transform.Scale - 1f) > 0.001f)
-            result = result.Scale(transform.Scale);
+        if (System.Math.Abs(transform.UniformScale - 1f) > 0.001f)
+            result = result.Scale(transform.UniformScale);
         if (transform.Rotation != Quaternion.Identity)
             result = result.Rotate(transform.Rotation);
         result = result.Translate(transform.Position);

@@ -47,7 +47,7 @@ public class TriangleMeshTests
                 [0, 1, 2]),
             Color = Rgba32.White
         };
-        var t = new Transform { Position = new Vector3(0f, 5f, 0f) };
+        var t = RigidTransform.FromPosition(new Vector3(0f, 5f, 0f));
         var world = shape.GetTransformedShape(t);
         await Assert.That(world.TriangleMesh).IsNotNull();
         await Assert.That(world.TriangleMesh!.Vertices[0].Y).IsEqualTo(5f).Within(0.001f);

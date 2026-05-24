@@ -4,7 +4,6 @@
     <ProjectReference Include="..\Novolis.Math.Topology\Novolis.Math.Topology.csproj" />
   </ItemGroup>
   <PropertyGroup>
-    <NoWarn>$(NoWarn);CS0618</NoWarn>
     <PackageId>Novolis.Math.Geometry</PackageId>
 <IsPackable>true</IsPackable>
     <Description>Geometry primitives, transforms, intersections, and BVH for Novolis stack libraries.</Description>
