@@ -1,9 +1,7 @@
 <Project>
-
-  <Import Project="$(MSBuildThisFileDirectory).novolis\version.props"
-          Condition="Exists('$(MSBuildThisFileDirectory).novolis\version.props')" />
-
-  <PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)build\version.props"
+          Condition="Exists('$(MSBuildThisFileDirectory)build\version.props')" />
+<PropertyGroup>
     <NovolisGitHubRepository>novolis-math</NovolisGitHubRepository>
   </PropertyGroup>
 
