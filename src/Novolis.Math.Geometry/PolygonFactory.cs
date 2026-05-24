@@ -2,6 +2,7 @@ using System.Numerics;
 
 namespace Novolis.Math.Geometry;
 
+/// <summary>Factory methods for procedural <see cref="Polygon"/> meshes.</summary>
 public static partial class PolygonFactory
 {
     /// <summary>

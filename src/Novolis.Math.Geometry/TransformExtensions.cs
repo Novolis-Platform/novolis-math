@@ -2,6 +2,7 @@ using System.Numerics;
 
 namespace Novolis.Math.Geometry;
 
+/// <summary>Mutation helpers for <see cref="Transform"/>.</summary>
 public static class TransformExtensions
 {
     /// <summary>

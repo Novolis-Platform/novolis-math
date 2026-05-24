@@ -3,6 +3,7 @@ using System.Numerics;
 
 namespace Novolis.Math.Geometry;
 
+/// <summary>Transform, intersection, and bounds helpers for <see cref="Polygon"/>.</summary>
 public static class PolygonExtensions
 {
     /// <summary>

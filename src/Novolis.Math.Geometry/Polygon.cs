@@ -88,6 +88,7 @@ public class Polygon : IEnumerable<Vector3>
     /// <summary>Same as <see cref="Edges" /> without allocating an enumerator.</summary>
     public ReadOnlySpan<Edge> EdgesSpan => _edges;
 
+    /// <summary>Number of fan-triangulated faces.</summary>
     public int FaceCount => _faces.Length;
 
     /// <summary>
@@ -113,6 +114,7 @@ public class Polygon : IEnumerable<Vector3>
         return GetEnumerator();
     }
 
+    /// <inheritdoc />
     public override string ToString()
     {
         return $"Vertices: {string.Join(", ", _vertices)}";

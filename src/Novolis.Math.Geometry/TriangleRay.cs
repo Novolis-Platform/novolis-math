@@ -1,11 +1,22 @@
 using System.Numerics;
-using Novolis.Math.Geometry;
 
 namespace Novolis.Math.Geometry;
 
 /// <summary>Möller–Trumbore ray–triangle intersection.</summary>
 public static class TriangleRay
 {
+    /// <summary>
+    /// Tests whether <paramref name="ray"/> hits the triangle <paramref name="v0"/>–<paramref name="v2"/> within
+    /// <paramref name="maxDistance"/>.
+    /// </summary>
+    /// <param name="ray">World-space ray (unit direction recommended).</param>
+    /// <param name="v0">First triangle vertex.</param>
+    /// <param name="v1">Second triangle vertex.</param>
+    /// <param name="v2">Third triangle vertex.</param>
+    /// <param name="maxDistance">Maximum hit distance along the ray.</param>
+    /// <param name="distance">Hit distance when returning <see langword="true"/>.</param>
+    /// <param name="normal">Face normal oriented against the ray direction.</param>
+    /// <returns><see langword="true"/> if the ray intersects the triangle.</returns>
     public static bool TryHit(in Ray3 ray, Vector3 v0, Vector3 v1, Vector3 v2, float maxDistance, out float distance, out Vector3 normal)
     {
         distance = 0f;

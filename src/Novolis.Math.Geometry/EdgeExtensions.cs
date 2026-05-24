@@ -3,6 +3,7 @@ using System.Numerics;
 
 namespace Novolis.Math.Geometry;
 
+/// <summary>Geometric queries and utilities for <see cref="Edge"/>.</summary>
 public static class EdgeExtensions
 {
     /// <summary>

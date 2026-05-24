@@ -2,12 +2,17 @@ using System.Numerics;
 
 namespace Novolis.Math.Geometry;
 
+/// <summary>Transform, bounds, and intersection helpers for <see cref="Shape"/>.</summary>
 public static class ShapeExtensions
 {
+    /// <summary>Applies <paramref name="transform"/> and returns a new shape.</summary>
+    /// <param name="shape">Source shape.</param>
+    /// <param name="transform">Transform to apply.</param>
+    /// <returns>Transformed shape.</returns>
     public static Shape GetTransformedShape(this Shape shape, Transform transform) => shape.Transform(transform);
 
     /// <summary>
-    ///     Axis-aligned bounds of <see cref="Polygon" /> and/or <see cref="Shape.TriangleMesh" /> (union when both).
+    /// Axis-aligned bounds of <see cref="Polygon" /> and/or <see cref="Shape.TriangleMesh" /> (union when both).
     /// </summary>
     public static (Vector3 Min, Vector3 Max) GetAxisAlignedBoundingBox(this Shape shape)
     {
@@ -25,6 +30,10 @@ public static class ShapeExtensions
         return (Vector3.Min(mMin, pMin), Vector3.Max(mMax, pMax));
     }
 
+    /// <summary>Tests AABB overlap between two shapes (broad phase).</summary>
+    /// <param name="a">First shape.</param>
+    /// <param name="b">Second shape.</param>
+    /// <returns><see langword="true"/> if axis-aligned boxes overlap.</returns>
     public static bool BoundingBoxesOverlap(this Shape a, Shape b)
     {
         var (aMin, aMax) = a.GetAxisAlignedBoundingBox();
@@ -34,6 +43,10 @@ public static class ShapeExtensions
                && aMin.Z <= bMax.Z && aMax.Z >= bMin.Z;
     }
 
+    /// <summary>Tests intersection using mesh AABB or polygon edge tests.</summary>
+    /// <param name="shape">First shape.</param>
+    /// <param name="otherShape">Second shape.</param>
+    /// <returns><see langword="true"/> if shapes intersect.</returns>
     public static bool Intersect(this Shape shape, Shape otherShape)
     {
         if (shape.TriangleMesh != null || otherShape.TriangleMesh != null)
@@ -42,6 +55,10 @@ public static class ShapeExtensions
         return shape.Polygon.Intersect(otherShape.Polygon);
     }
 
+    /// <summary>Returns intersection points or a coarse point when meshes use AABB overlap only.</summary>
+    /// <param name="shape">First shape.</param>
+    /// <param name="otherShape">Second shape.</param>
+    /// <returns>Intersection points (may be approximate for mesh-only shapes).</returns>
     public static IEnumerable<Vector3> GetIntersectionPoints(this Shape shape, Shape otherShape)
     {
         if (shape.TriangleMesh != null || otherShape.TriangleMesh != null)
@@ -59,7 +76,7 @@ public static class ShapeExtensions
     }
 
     /// <summary>
-    ///     Applies scale (around the origin), rotation, then translation — typical for model vertices in local space.
+    /// Applies scale (around the origin), rotation, then translation — typical for model vertices in local space.
     /// </summary>
     public static Shape Transform(this Shape shape, Transform transform)
     {
@@ -72,6 +89,9 @@ public static class ShapeExtensions
         return result;
     }
 
+    /// <summary>Creates a deep copy of the shape.</summary>
+    /// <param name="shape">Source shape.</param>
+    /// <returns>Copied shape.</returns>
     public static Shape GetCopy(this Shape shape)
     {
         return new Shape
@@ -82,6 +102,10 @@ public static class ShapeExtensions
         };
     }
 
+    /// <summary>Translates polygon and optional mesh.</summary>
+    /// <param name="shape">Source shape.</param>
+    /// <param name="position">Translation vector.</param>
+    /// <returns>Translated shape.</returns>
     public static Shape Translate(this Shape shape, Vector3 position)
     {
         return new Shape
@@ -92,6 +116,10 @@ public static class ShapeExtensions
         };
     }
 
+    /// <summary>Rotates polygon and optional mesh.</summary>
+    /// <param name="shape">Source shape.</param>
+    /// <param name="rotation">Rotation quaternion.</param>
+    /// <returns>Rotated shape.</returns>
     public static Shape Rotate(this Shape shape, Quaternion rotation)
     {
         return new Shape
@@ -102,6 +130,10 @@ public static class ShapeExtensions
         };
     }
 
+    /// <summary>Uniformly scales polygon and optional mesh.</summary>
+    /// <param name="shape">Source shape.</param>
+    /// <param name="scale">Scale factor.</param>
+    /// <returns>Scaled shape.</returns>
     public static Shape Scale(this Shape shape, float scale)
     {
         return new Shape

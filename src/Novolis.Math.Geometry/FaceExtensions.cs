@@ -2,6 +2,7 @@ using System.Numerics;
 
 namespace Novolis.Math.Geometry;
 
+/// <summary>Geometric utilities for <see cref="Face"/>.</summary>
 public static class FaceExtensions
 {
     /// <summary>

@@ -41,12 +41,16 @@ public sealed class TriangleMesh
         }
     }
 
+    /// <summary>Vertex positions.</summary>
     public ReadOnlySpan<Vector3> Vertices => _vertices;
 
+    /// <summary>Triangle index buffer (three indices per triangle).</summary>
     public ReadOnlySpan<int> Indices => _indices;
 
+    /// <summary>Number of vertices.</summary>
     public int VertexCount => _vertices.Length;
 
+    /// <summary>Number of triangles (<c>Indices.Length / 3</c>).</summary>
     public int TriangleCount => _indices.Length / 3;
 
     /// <summary>All triangles as <see cref="Face" /> values in world/index order.</summary>

@@ -109,6 +109,7 @@ public static class Constants
         public const float NegativeInfinity = float.NegativeInfinity;
     }
 
+    /// <summary>Miscellaneous physics-related constants.</summary>
     public static class PhysicsConstants
     {
         /// <summary>
@@ -123,15 +124,34 @@ public static class Constants
     /// </summary>
     public static class AspectRatioConstants
     {
+        /// <summary>4:3 landscape aspect ratio.</summary>
         public const float Landscape = 1.333f;
+
+        /// <summary>3:4 portrait aspect ratio.</summary>
         public const float Portrait = 0.75f;
+
+        /// <summary>16:10 letterbox aspect ratio.</summary>
         public const float Letterbox = 1.6f;
+
+        /// <summary>1:1 square aspect ratio.</summary>
         public const float Square = 1f;
+
+        /// <summary>IMAX aspect ratio.</summary>
         public const float Imax = 1.9f;
+
+        /// <summary>16:9 console/TV aspect ratio.</summary>
         public const float Console = 1.777f;
+
+        /// <summary>21:9 ultrawide aspect ratio.</summary>
         public const float Ultrawide = 2.37f;
+
+        /// <summary>4:3 standard aspect ratio.</summary>
         public const float Standard = 1.333f;
+
+        /// <summary>16:10 widescreen aspect ratio.</summary>
         public const float Widescreen = 1.6f;
+
+        /// <summary>32:9 super-ultrawide aspect ratio.</summary>
         public const float SuperUltrawide = 3.37f;
     }
 
@@ -141,17 +161,22 @@ public static class Constants
     /// </summary>
     public static class VectorConstants
     {
+        /// <summary>World up (+Z).</summary>
         public static Vector3 Up = new(0, 0, 1);
+
+        /// <summary>World down (−Y in this basis).</summary>
         public static Vector3 Down = new(0, -1, 0);
+
+        /// <summary>World left (−X).</summary>
         public static Vector3 Left = new(-1, 0, 0);
+
+        /// <summary>World right (+X).</summary>
         public static Vector3 Right = new(1, 0, 0);
 
-        /// <summary>
-        ///     The Vector3Constants class provides constants that are specific to Vector3 and commonly used in physics and
-        ///     mathematics.
-        /// </summary>
+        /// <summary>Vector constants used in physics helpers.</summary>
         public static class PhysicsConstants
         {
+            /// <summary>Earth gravity as a downward vector scaled by <see cref="TerrestrialConstants.EarthGravity"/>.</summary>
             public static readonly Vector3 EarthGravity = Down * TerrestrialConstants.EarthGravity;
         }
     }

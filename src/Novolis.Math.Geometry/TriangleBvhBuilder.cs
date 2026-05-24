@@ -5,6 +5,12 @@ namespace Novolis.Math.Geometry;
 /// <summary>Builds a binary BVH over indexed triangles.</summary>
 public static class TriangleBvhBuilder
 {
+    /// <summary>
+    /// Builds a binary BVH over the given indexed triangle list.
+    /// </summary>
+    /// <param name="vertices">Vertex buffer referenced by indices.</param>
+    /// <param name="triangleIndices">Three indices per triangle.</param>
+    /// <returns>Acceleration structure for ray queries.</returns>
     public static TriangleBvh Build(Vector3[] vertices, int[] triangleIndices)
     {
         ArgumentNullException.ThrowIfNull(vertices);
