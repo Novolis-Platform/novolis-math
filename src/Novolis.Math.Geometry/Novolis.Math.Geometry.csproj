@@ -8,5 +8,6 @@
 <IsPackable>true</IsPackable>
     <Description>Geometry primitives, transforms, intersections, and BVH for Novolis stack libraries.</Description>
     <RootNamespace>Novolis.Math.Geometry</RootNamespace>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
 </Project>
