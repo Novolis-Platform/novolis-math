@@ -91,4 +91,41 @@ public class EditableMeshModelingTests
         var diff = MeshBoolean.ApplySolid(left, right, MeshBooleanKind.Difference);
         await Assert.That(diff.TriangleCount).IsLessThanOrEqualTo(left.TriangleCount);
     }
+
+    [Test]
+    public async Task Boolean_Union_ConcatenatesTriangles()
+    {
+        var a = UnitBox();
+        var b = UnitBox();
+        var union = MeshBoolean.ApplySolid(a, b, MeshBooleanKind.Union);
+        await Assert.That(union.TriangleCount).IsEqualTo(a.TriangleCount + b.TriangleCount);
+        await Assert.That(union.VertexCount).IsEqualTo(a.VertexCount + b.VertexCount);
+    }
+
+    [Test]
+    public async Task Boolean_Intersection_KeepsInsideAabb()
+    {
+        var left = new EditableMesh(
+            [new(-2, -1, -1), new(2, -1, -1), new(2, 1, -1), new(-2, 1, -1),
+             new(-2, -1, 1), new(2, -1, 1), new(2, 1, 1), new(-2, 1, 1)],
+            [0, 1, 2, 0, 2, 3, 4, 6, 5, 4, 7, 6, 0, 4, 5, 0, 5, 1, 2, 6, 7, 2, 7, 3, 0, 3, 7, 0, 7, 4, 1, 5, 6, 1, 6, 2]);
+        // Cover the +X face centroid (~(2,0,0)) so at least those tris are kept.
+        var region = new EditableMesh(
+            [
+                new(1.5f, -1.2f, -1.2f), new(2.5f, -1.2f, -1.2f), new(2.5f, 1.2f, -1.2f), new(1.5f, 1.2f, -1.2f),
+                new(1.5f, -1.2f, 1.2f), new(2.5f, -1.2f, 1.2f), new(2.5f, 1.2f, 1.2f), new(1.5f, 1.2f, 1.2f),
+            ],
+            [0, 1, 2, 0, 2, 3, 4, 6, 5, 4, 7, 6, 0, 4, 5, 0, 5, 1, 2, 6, 7, 2, 7, 3, 0, 3, 7, 0, 7, 4, 1, 5, 6, 1, 6, 2]);
+        var intersect = MeshBoolean.ApplySolid(left, region, MeshBooleanKind.Intersection);
+        await Assert.That(intersect.TriangleCount).IsGreaterThan(0);
+        await Assert.That(intersect.TriangleCount).IsLessThanOrEqualTo(left.TriangleCount);
+    }
+
+    private static EditableMesh UnitBox() =>
+        new(
+            [
+                new(-0.5f, -0.5f, -0.5f), new(0.5f, -0.5f, -0.5f), new(0.5f, 0.5f, -0.5f), new(-0.5f, 0.5f, -0.5f),
+                new(-0.5f, -0.5f, 0.5f), new(0.5f, -0.5f, 0.5f), new(0.5f, 0.5f, 0.5f), new(-0.5f, 0.5f, 0.5f),
+            ],
+            [0, 1, 2, 0, 2, 3, 4, 6, 5, 4, 7, 6, 0, 4, 5, 0, 5, 1, 2, 6, 7, 2, 7, 3, 0, 3, 7, 0, 7, 4, 1, 5, 6, 1, 6, 2]);
 }
