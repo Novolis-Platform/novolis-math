@@ -1,6 +1,6 @@
 # Novolis.Math.Arrays
 
-Dense volumetric grids with numeric and spreadsheet-style indexing.
+Dense volumetric grids with numeric and spreadsheet-style indexing, plus packed voxel chunks (`VoxelChunk`, `ChunkCoord3`).
 
 ## Install
 
@@ -19,8 +19,8 @@ var board = new DenseGrid<char>(8, 8);
 board["a", "a"] = 'X';
 board[3, 4] = 'O';
 
-foreach (var cell in board.Find(c => c == 'X'))
-    Console.WriteLine(cell);
+var chunk = new VoxelChunk(new ChunkCoord3(0, 0, 0));
+chunk.Set(1, 2, 3, blockId: 5);
 ```
 
 ## Related packages
@@ -28,6 +28,7 @@ foreach (var cell in board.Find(c => c == 'X'))
 | Package | When to use |
 |---------|-------------|
 | `Novolis.Math.Geometry` | Meshes, rays, BVH, and lattice types (`LatticePoint`) for world-space geometry |
+| `Novolis.Simulation.Voxels` | Chunked world, streaming, dig/place over `VoxelChunk` |
 
 ## More documentation
 
