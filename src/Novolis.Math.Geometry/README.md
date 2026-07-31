@@ -23,6 +23,15 @@ var v2 = new Vector3(0, 1, 0);
 
 if (TriangleRay.TryHit(ray, v0, v1, v2, float.MaxValue, out var distance, out var normal))
     Console.WriteLine($"Hit at {distance}, normal {normal}");
+
+// AdaptiveMesh — one surface bound to moving sphere/capsule handles
+var handles = new AdaptiveMeshHandle[]
+{
+    new(Vector3.Zero, 0.1f),
+    new(new Vector3(0, 1, 0), 0.1f),
+};
+var adaptive = AdaptiveMeshFactory.FromCapsuleGraph(handles, [(0, 1)]);
+var posed = adaptive.AdaptToMesh(new[] { handles[0].Position, new Vector3(0.2f, 1f, 0f) });
 ```
 
 ## Related packages
