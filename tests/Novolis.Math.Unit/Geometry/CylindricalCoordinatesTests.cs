@@ -66,4 +66,17 @@ public class CylindricalCoordinatesTests
         await Assert.That(text).Contains("°");
         await Assert.That(text).Contains("→");
     }
+
+    [Test]
+    public async Task EqualityOperators_And_FromCartesianComponents()
+    {
+        var a = CylindricalPoint.FromDegrees(2f, 45f, 1f);
+        var same = CylindricalPoint.FromDegrees(2f, 45f, 1f);
+        await Assert.That(a == same).IsTrue();
+        await Assert.That(a != CylindricalPoint.Origin).IsTrue();
+        await Assert.That(a.Equals((object)same)).IsTrue();
+        await Assert.That(a.GetHashCode()).IsEqualTo(same.GetHashCode());
+        await Assert.That(a.AzimuthDegrees).IsEqualTo(45f).Within(0.01f);
+        await Assert.That(CylindricalPoint.FromCartesian(1f, 0f, 0f).Radius).IsEqualTo(1f);
+    }
 }

@@ -34,4 +34,17 @@ public class BvhRaycastTests
         await Assert.That(tEnter).IsEqualTo(1f).Within(1e-5f);
         await Assert.That(tExit).IsEqualTo(2f).Within(1e-5f);
     }
+
+    [Test]
+    public async Task AxisAlignedBox_Expand_Intersects_And_Contains()
+    {
+        var box = AxisAlignedBox.FromMinMax(Vector3.One, Vector3.Zero);
+        var expanded = AxisAlignedBox.Expand(box, new Vector3(2f, -1f, 0.5f));
+        await Assert.That(expanded.Min.X).IsEqualTo(0f);
+        await Assert.That(expanded.Max.X).IsEqualTo(2f);
+        await Assert.That(box.Intersects(expanded)).IsTrue();
+        await Assert.That(box.Contains(new Vector3(0.5f, 0.5f, 0.5f))).IsTrue();
+        var miss = AxisAlignedBox.RayInterval(box, new Vector3(2f, 0.5f, 0.5f), Vector3.UnitX, 0f, 10f, out _, out _);
+        await Assert.That(miss).IsFalse();
+    }
 }

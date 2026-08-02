@@ -35,4 +35,33 @@ public sealed class VoxelChunkTests
         await Assert.That(VoxelChunk.ContainsLocal(15, 15, 15)).IsTrue();
         await Assert.That(VoxelChunk.ContainsLocal(16, 0, 0)).IsFalse();
     }
+
+    [Test]
+    public async Task Set_NoOp_WhenSameId()
+    {
+        var chunk = new VoxelChunk();
+        chunk.Set(1, 1, 1, 5);
+        var prev = chunk.Set(1, 1, 1, 5);
+        await Assert.That(prev).IsEqualTo((ushort)5);
+        await Assert.That(chunk.SolidCount).IsEqualTo(1);
+    }
+
+    [Test]
+    public async Task Recount_AfterBulkWrite()
+    {
+        var chunk = new VoxelChunk();
+        chunk.BlocksMutable[0] = 3;
+        chunk.BlocksMutable[10] = 4;
+        chunk.Recount();
+        await Assert.That(chunk.SolidCount).IsEqualTo(2);
+        await Assert.That(chunk.IsEmpty).IsFalse();
+    }
+
+    [Test]
+    public async Task Get_OutOfRange_Throws()
+    {
+        var chunk = new VoxelChunk();
+        var act = () => chunk.Get(16, 0, 0);
+        await Assert.That(act).Throws<ArgumentOutOfRangeException>();
+    }
 }
