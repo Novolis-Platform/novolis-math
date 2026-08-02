@@ -5,6 +5,13 @@ namespace Novolis.Math.Geometry;
 /// <summary>Builds a binary BVH over indexed triangles.</summary>
 public static class TriangleBvhBuilder
 {
+    /// <summary>Builds a binary BVH over <paramref name="mesh"/> (reuses mesh buffers).</summary>
+    public static TriangleBvh Build(TriangleMesh mesh)
+    {
+        ArgumentNullException.ThrowIfNull(mesh);
+        return mesh.CreateBvh();
+    }
+
     /// <summary>
     /// Builds a binary BVH over the given indexed triangle list.
     /// </summary>

@@ -53,6 +53,40 @@ public sealed class TriangleMesh
     /// <summary>Number of triangles (<c>Indices.Length / 3</c>).</summary>
     public int TriangleCount => _indices.Length / 3;
 
+    /// <summary>Returns the three vertices of triangle <paramref name="triangleIndex"/>.</summary>
+    public void GetTriangle(int triangleIndex, out Vector3 v0, out Vector3 v1, out Vector3 v2)
+    {
+        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual((uint)triangleIndex, (uint)TriangleCount);
+        var i = triangleIndex * 3;
+        v0 = _vertices[_indices[i]];
+        v1 = _vertices[_indices[i + 1]];
+        v2 = _vertices[_indices[i + 2]];
+    }
+
+    /// <summary>Axis-aligned bounds of triangle <paramref name="triangleIndex"/>.</summary>
+    public AxisAlignedBox TriangleBounds(int triangleIndex)
+    {
+        GetTriangle(triangleIndex, out var v0, out var v1, out var v2);
+        var box = AxisAlignedBox.FromMinMax(v0, v0);
+        box = AxisAlignedBox.Expand(box, v1);
+        return AxisAlignedBox.Expand(box, v2);
+    }
+
+    /// <summary>Axis-aligned bounds enclosing all vertices.</summary>
+    public AxisAlignedBox GetAxisAlignedBox()
+    {
+        if (_vertices.Length == 0)
+            return new AxisAlignedBox(Vector3.Zero, Vector3.Zero);
+
+        var box = AxisAlignedBox.FromMinMax(_vertices[0], _vertices[0]);
+        for (var i = 1; i < _vertices.Length; i++)
+            box = AxisAlignedBox.Expand(box, _vertices[i]);
+        return box;
+    }
+
+    /// <summary>Builds a binary BVH over this mesh (reuses internal vertex/index buffers).</summary>
+    public TriangleBvh CreateBvh() => TriangleBvhBuilder.Build(_vertices, _indices);
+
     /// <summary>All triangles as <see cref="Face" /> values in world/index order.</summary>
     public IEnumerable<Face> GetFaces()
     {

@@ -59,17 +59,7 @@ public static class TriangleMeshExtensions
     /// <returns>Minimum and maximum corners.</returns>
     public static (Vector3 Min, Vector3 Max) GetAxisAlignedBoundingBox(this TriangleMesh mesh)
     {
-        if (mesh.VertexCount == 0)
-            return (Vector3.Zero, Vector3.Zero);
-
-        var min = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
-        var max = new Vector3(float.MinValue, float.MinValue, float.MinValue);
-        foreach (var vertex in mesh.Vertices)
-        {
-            min = Vector3.Min(min, vertex);
-            max = Vector3.Max(max, vertex);
-        }
-
-        return (min, max);
+        var box = mesh.GetAxisAlignedBox();
+        return (box.Min, box.Max);
     }
 }
