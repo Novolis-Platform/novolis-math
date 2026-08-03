@@ -1,3 +1,11 @@
+<!-- novolis-pkg-brand:start -->
+<p align="center">
+  <a href="https://github.com/Novolis-Platform/novolis-math">
+    <img src="https://raw.githubusercontent.com/Novolis-Platform/.github/main/brand/logo-icon.svg" width="72" alt="Novolis"/>
+  </a>
+</p>
+<!-- novolis-pkg-brand:end -->
+
 # Novolis.Math.Arrays
 
 Dense volumetric grids with numeric and spreadsheet-style indexing, plus packed voxel chunks (`VoxelChunk`, `ChunkCoord3`).
@@ -38,3 +46,4 @@ chunk.Set(1, 2, 3, blockId: 5);
 ## Support
 
 Pre-release (`2026.1.*` on GitHub Packages). No simulation time or camera APIs — those live in Physics and Simulation.
+

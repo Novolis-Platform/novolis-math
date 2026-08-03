@@ -1,3 +1,11 @@
+<!-- novolis-pkg-brand:start -->
+<p align="center">
+  <a href="https://github.com/Novolis-Platform/novolis-math">
+    <img src="https://raw.githubusercontent.com/Novolis-Platform/.github/main/brand/logo-icon.svg" width="72" alt="Novolis"/>
+  </a>
+</p>
+<!-- novolis-pkg-brand:end -->
+
 # Novolis.Math.Geometry
 
 Renderer-agnostic primitives, meshes, transforms, intersections, and acceleration structures on BCL `System.Numerics`.
@@ -49,3 +57,4 @@ var posed = adaptive.AdaptToMesh(new[] { handles[0].Position, new Vector3(0.2f, 
 ## Support
 
 Pre-release (`2026.1.*` on GitHub Packages). Planar XZ uses `Vector3` with Y = 0. Observer cameras live in `Novolis.Simulation.View`.
+
