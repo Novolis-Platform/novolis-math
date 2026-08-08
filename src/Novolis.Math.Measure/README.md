@@ -34,7 +34,7 @@ var content = page.Inset(margin);
 | Package | When to use |
 |---------|-------------|
 | `Novolis.Math.Geometry` | 3D meshes, rays, BVH on BCL `System.Numerics` |
-| `Novolis.Documents` | Book page setup built on these measures |
+| `Novolis.Documents` | Paged document page setup built on these measures |
 
 ## Support
 
