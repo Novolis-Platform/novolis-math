@@ -3,6 +3,7 @@
     <Project Path="src/Novolis.Math.Arrays/Novolis.Math.Arrays.csproj" />
     <Project Path="src/Novolis.Math.Topology/Novolis.Math.Topology.csproj" />
     <Project Path="src/Novolis.Math.Geometry/Novolis.Math.Geometry.csproj" />
+    <Project Path="src/Novolis.Math.Measure/Novolis.Math.Measure.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Novolis.Math.Unit/Novolis.Math.Unit.csproj" />

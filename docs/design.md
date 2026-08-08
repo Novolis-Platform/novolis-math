@@ -27,22 +27,24 @@ Policy: [library-boundaries.md](https://github.com/Novolis-Platform/novolis-gove
 ## Package split
 
 ```text
-Novolis.Math.Arrays
-Novolis.Math.Topology  →  (BCL only)
-Novolis.Math.Geometry  →  Arrays, Topology
+Novolis.Math.Arrays     →  (BCL only)
+Novolis.Math.Topology   →  (BCL only)
+Novolis.Math.Measure    →  (BCL only)
+Novolis.Math.Geometry   →  Arrays, Topology
 ```
 
 | Package | Responsibility |
 |---------|----------------|
 | `Novolis.Math.Arrays` | Dense volumetric grids, letter/numeric indexing |
 | `Novolis.Math.Topology` | Polygon, face, edge, shape connectivity |
+| `Novolis.Math.Measure` | Scalar `Length`/`Size`/`Thickness`/`Rect` (points); no `Vector2` |
 | `Novolis.Math.Geometry` | Primitives, meshes, transforms, intersections, BVH, lattice helpers |
 
 `Grid<T>` in Geometry is removed; use `DenseGrid<T>` from Arrays.
 
 ## Dependencies
 
-- Topology: no project references (BCL only).
+- Arrays, Topology, Measure: no project references (BCL only).
 - Geometry references Arrays and Topology.
 - Stack-boundary analyzers run at build time to block forbidden cross-layer references.
 

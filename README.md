@@ -41,6 +41,7 @@
 | `Novolis.Math.Arrays` | `dotnet add package Novolis.Math.Arrays` | [README](https://github.com/Novolis-Platform/novolis-math/blob/main/src/Novolis.Math.Arrays/README.md) |
 | `Novolis.Math.Geometry` | `dotnet add package Novolis.Math.Geometry` | [README](https://github.com/Novolis-Platform/novolis-math/blob/main/src/Novolis.Math.Geometry/README.md) |
 | `Novolis.Math.Topology` | `dotnet add package Novolis.Math.Topology` | [README](https://github.com/Novolis-Platform/novolis-math/blob/main/src/Novolis.Math.Topology/README.md) |
+| `Novolis.Math.Measure` | `dotnet add package Novolis.Math.Measure` | [README](https://github.com/Novolis-Platform/novolis-math/blob/main/src/Novolis.Math.Measure/README.md) |
 
 For NuGet.org and Visual Studio, the **embedded** README.md inside each package is authoritative.
 
@@ -58,6 +59,7 @@ Policy: [library-boundaries.md](https://github.com/Novolis-Platform/novolis-gove
 | `Novolis.Math.Arrays` | `DenseGrid<T>` volumetric storage and `GridIndex` |
 | `Novolis.Math.Geometry` | Meshes, primitives, transforms, intersections, BVH |
 | `Novolis.Math.Topology` | Polygon, face, edge connectivity |
+| `Novolis.Math.Measure` | Scalar length/size/thickness/rect (points) |
 
 ## Build
 

@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageId>Novolis.Math.Measure</PackageId>
+    <IsPackable>true</IsPackable>
+    <Description>Scalar length, size, thickness, and rect measure types (points) for Novolis libraries.</Description>
+    <RootNamespace>Novolis.Math.Measure</RootNamespace>
+  </PropertyGroup>
+</Project>
