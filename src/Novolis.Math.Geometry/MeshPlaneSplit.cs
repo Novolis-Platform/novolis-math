@@ -2,8 +2,6 @@ using System.Numerics;
 
 namespace Novolis.Math.Geometry;
 
-public sealed record PlaneSplitResult(EditableMesh Positive, EditableMesh Negative);
-
 /// <summary>Clip a triangle mesh by a plane into positive / negative halves.</summary>
 public static class MeshPlaneSplit
 {

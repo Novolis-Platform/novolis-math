@@ -6,9 +6,3 @@ public enum MeshDiagnosticSeverity
     Warning,
     Error,
 }
-
-public sealed record MeshDiagnostic(
-    MeshDiagnosticSeverity Severity,
-    string Code,
-    string Message,
-    IReadOnlyList<int> ComponentIds);

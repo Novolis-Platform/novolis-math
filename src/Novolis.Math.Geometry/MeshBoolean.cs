@@ -2,13 +2,6 @@ using System.Numerics;
 
 namespace Novolis.Math.Geometry;
 
-public enum MeshBooleanKind
-{
-    Union,
-    Difference,
-    Intersection,
-}
-
 /// <summary>
 /// Lightweight mesh boolean for analytic-tessellated solids.
 /// v1 uses AABB classification + keep/discard of triangles (good enough for box cutters).

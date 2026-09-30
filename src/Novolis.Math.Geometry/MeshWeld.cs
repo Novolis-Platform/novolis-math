@@ -2,25 +2,6 @@ using System.Numerics;
 
 namespace Novolis.Math.Geometry;
 
-public enum WeldPositionMode
-{
-    FirstVertex,
-    LastVertex,
-    Average,
-}
-
-public enum WeldScope
-{
-    SelectedVertices,
-    EntireMesh,
-    BoundaryOnly,
-}
-
-public sealed record WeldOptions(
-    float Tolerance,
-    WeldPositionMode PositionMode = WeldPositionMode.Average,
-    WeldScope Scope = WeldScope.EntireMesh);
-
 /// <summary>Spatial-hash vertex welding.</summary>
 public static class MeshWeld
 {

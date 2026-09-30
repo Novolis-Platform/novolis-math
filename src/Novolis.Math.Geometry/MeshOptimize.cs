@@ -2,17 +2,6 @@ using System.Numerics;
 
 namespace Novolis.Math.Geometry;
 
-public sealed record OptimizeOptions(
-    bool WeldDuplicateVertices = true,
-    bool RemoveDuplicateFaces = true,
-    bool RemoveDegenerateFaces = true,
-    bool RemoveUnusedVertices = true,
-    bool FixFaceWinding = false,
-    float WeldTolerance = 1e-5f,
-    float DegenerateAreaTolerance = 1e-12f);
-
-public sealed record OptimizeResult(EditableMesh Mesh, IReadOnlyList<MeshDiagnostic> Diagnostics);
-
 /// <summary>Mesh cleanup pipeline. Non-manifold edges are reported, not auto-repaired.</summary>
 public static class MeshOptimize
 {

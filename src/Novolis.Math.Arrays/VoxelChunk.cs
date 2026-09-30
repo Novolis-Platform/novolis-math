@@ -1,8 +1,5 @@
 namespace Novolis.Math.Arrays;
 
-/// <summary>Integer chunk coordinate in a 3D voxel lattice.</summary>
-public readonly record struct ChunkCoord3(int X, int Y, int Z);
-
 /// <summary>
 /// Fixed 16³ voxel chunk with packed <see cref="ushort"/> block ids (0 = air).
 /// Local indices are in [0, 16).
