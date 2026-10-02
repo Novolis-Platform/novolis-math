@@ -75,4 +75,68 @@ public sealed class GeospatialTests
         await Assert.That(() => WebMercatorProjection.Unproject(new GeoProjectedPoint(1.1, 0.5)))
             .Throws<ArgumentOutOfRangeException>();
     }
+
+    [Test]
+    public async Task MapTileKey_wraps_x_and_validates_y()
+    {
+        var key = new MapTileKey(3, -1, 2);
+
+        await Assert.That(key.X).IsEqualTo(7);
+        await Assert.That(key.Y).IsEqualTo(2);
+        await Assert.That(() => new MapTileKey(3, 0, 8))
+            .Throws<ArgumentOutOfRangeException>();
+    }
+
+    [Test]
+    public async Task WebMercatorTiles_round_trip_a_kristiansand_coordinate()
+    {
+        var center = new GeoCoordinate(58.14623, 7.99517);
+        var coordinate = new GeoCoordinate(58.15, 8.01);
+        var pixel = WebMercatorTiles.GeoToPixel(
+            center,
+            zoom: 12,
+            width: 800,
+            height: 600,
+            coordinate);
+        var roundTrip = WebMercatorTiles.PixelToGeo(
+            center,
+            zoom: 12,
+            width: 800,
+            height: 600,
+            pixel.X,
+            pixel.Y);
+
+        await Assert.That(pixel.X).IsGreaterThan(400d);
+        await Assert.That(pixel.Y).IsLessThan(300d);
+        await Assert.That(roundTrip.Latitude).IsEqualTo(coordinate.Latitude).Within(1e-9);
+        await Assert.That(roundTrip.Longitude).IsEqualTo(coordinate.Longitude).Within(1e-9);
+    }
+
+    [Test]
+    public async Task WebMercatorTiles_keeps_antimeridian_coordinates_nearby()
+    {
+        var pixel = WebMercatorTiles.GeoToPixel(
+            new GeoCoordinate(0, 179.9),
+            zoom: 8,
+            width: 800,
+            height: 600,
+            new GeoCoordinate(0, -179.9));
+
+        await Assert.That(pixel.X).IsGreaterThan(300d);
+        await Assert.That(pixel.X).IsLessThan(500d);
+    }
+
+    [Test]
+    public async Task WebMercatorTiles_lists_wrapped_tiles_and_clips_polar_rows()
+    {
+        var visible = WebMercatorTiles.VisibleTiles(
+            new GeoCoordinate(0, 179),
+            zoom: 3,
+            width: 512,
+            height: 512);
+
+        await Assert.That(visible).IsNotEmpty();
+        await Assert.That(visible.All(tile => tile.Zoom == 3 && tile.Y is >= 0 and < 8))
+            .IsTrue();
+    }
 }
