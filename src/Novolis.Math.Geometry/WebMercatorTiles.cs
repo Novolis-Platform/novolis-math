@@ -36,6 +36,52 @@ public static class WebMercatorTiles
             height / 2 + (projected.Y - centerProjected.Y) * worldPixels);
     }
 
+    /// <summary>
+    /// Converts a connected geographic path to pixels while unwrapping each
+    /// segment to its shortest antimeridian-relative representation.
+    /// </summary>
+    public static IReadOnlyList<(double X, double Y)> GeoPathToPixels(
+        GeoCoordinate center,
+        double zoom,
+        double width,
+        double height,
+        IReadOnlyList<GeoCoordinate> points)
+    {
+        ArgumentNullException.ThrowIfNull(points);
+        ValidateViewport(zoom, width, height);
+        if (points.Count == 0)
+            return [];
+
+        var centerProjected = WebMercatorProjection.Project(center);
+        var worldPixels = WorldPixels(zoom);
+        var pixels = new (double X, double Y)[points.Count];
+        var previousWorldX = double.NaN;
+        for (var index = 0; index < points.Count; index++)
+        {
+            var projected = WebMercatorProjection.Project(points[index]);
+            var worldX = projected.X;
+            while (worldX - centerProjected.X > 0.5)
+                worldX -= 1;
+            while (worldX - centerProjected.X < -0.5)
+                worldX += 1;
+
+            if (double.IsFinite(previousWorldX))
+            {
+                while (worldX - previousWorldX > 0.5)
+                    worldX -= 1;
+                while (worldX - previousWorldX < -0.5)
+                    worldX += 1;
+            }
+
+            previousWorldX = worldX;
+            pixels[index] = (
+                width / 2 + (worldX - centerProjected.X) * worldPixels,
+                height / 2 + (projected.Y - centerProjected.Y) * worldPixels);
+        }
+
+        return pixels;
+    }
+
     /// <summary>Converts viewport pixel coordinates to a geographic coordinate.</summary>
     public static GeoCoordinate PixelToGeo(
         GeoCoordinate center,
