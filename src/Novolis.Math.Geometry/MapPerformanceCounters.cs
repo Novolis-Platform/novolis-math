@@ -54,26 +54,31 @@ public sealed class MapPerformanceCounters
     /// <summary>Highest decoded-image count observed by the view.</summary>
     public long PeakDecodedTiles => Volatile.Read(ref _peakDecodedTiles);
 
-    internal void RecordVisibleTileCalculation() =>
+    /// <summary>Records one visible-key calculation.</summary>
+    public void RecordVisibleTileCalculation() =>
         Interlocked.Increment(ref _visibleTileCalculations);
 
-    internal void RecordTileRequestStarted(MapTileKey key)
+    /// <summary>Records the start of a tile request.</summary>
+    public void RecordTileRequestStarted(MapTileKey key)
     {
         if (!_activeTileRequests.TryAdd(key, 0))
             Interlocked.Increment(ref _duplicateTileRequests);
         Interlocked.Increment(ref _tileRequestsStarted);
     }
 
-    internal void RecordTileRequestCompleted(MapTileKey key)
+    /// <summary>Records the completion of a tile request.</summary>
+    public void RecordTileRequestCompleted(MapTileKey key)
     {
         _activeTileRequests.TryRemove(key, out _);
         Interlocked.Increment(ref _tileRequestsCompleted);
     }
 
-    internal void RecordDecodedTileCreated() =>
+    /// <summary>Records a decoded image being created.</summary>
+    public void RecordDecodedTileCreated() =>
         Interlocked.Increment(ref _decodedTilesCreated);
 
-    internal void RecordDecodedTileStored()
+    /// <summary>Records a decoded image entering a view cache.</summary>
+    public void RecordDecodedTileStored()
     {
         var current = Interlocked.Increment(ref _currentDecodedTiles);
         while (true)
@@ -87,18 +92,23 @@ public sealed class MapPerformanceCounters
         }
     }
 
-    internal void RecordDecodedTileRemoved() =>
+    /// <summary>Records a decoded image leaving a view cache.</summary>
+    public void RecordDecodedTileRemoved() =>
         Interlocked.Decrement(ref _currentDecodedTiles);
 
-    internal void RecordDecodedTileDisposed() =>
+    /// <summary>Records a decoded image being disposed.</summary>
+    public void RecordDecodedTileDisposed() =>
         Interlocked.Increment(ref _decodedTilesDisposed);
 
-    internal void RecordCacheEviction() =>
+    /// <summary>Records one cache eviction.</summary>
+    public void RecordCacheEviction() =>
         Interlocked.Increment(ref _cacheEvictions);
 
-    internal void RecordRedrawRequest() =>
+    /// <summary>Records one redraw request.</summary>
+    public void RecordRedrawRequest() =>
         Interlocked.Increment(ref _redrawRequests);
 
-    internal void RecordRefreshCancellation() =>
+    /// <summary>Records one canceled or superseded refresh.</summary>
+    public void RecordRefreshCancellation() =>
         Interlocked.Increment(ref _refreshCancellations);
 }
