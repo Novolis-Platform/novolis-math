@@ -139,4 +139,134 @@ public sealed class GeospatialTests
         await Assert.That(visible.All(tile => tile.Zoom == 3 && tile.Y is >= 0 and < 8))
             .IsTrue();
     }
+
+    [Test]
+    public async Task WebMercatorTiles_returns_stable_exact_keys_at_world_quarter()
+    {
+        var visible = WebMercatorTiles.VisibleTiles(
+            new GeoCoordinate(0, 0),
+            zoom: 1,
+            width: 256,
+            height: 256);
+
+        await Assert.That(visible).IsEquivalentTo(
+        [
+            new MapTileKey(1, 0, 0),
+            new MapTileKey(1, 0, 1),
+            new MapTileKey(1, 1, 0),
+            new MapTileKey(1, 1, 1),
+        ]);
+        await Assert.That(visible.ToArray()).IsEquivalentTo(
+            WebMercatorTiles.VisibleTiles(
+                new GeoCoordinate(0, 0),
+                zoom: 1,
+                width: 256,
+                height: 256));
+    }
+
+    [Test]
+    public async Task WebMercatorTiles_excludes_tile_on_exact_right_and_bottom_boundary()
+    {
+        var center = WebMercatorProjection.Unproject(
+            new GeoProjectedPoint(0.375, 0.375));
+        var visible = WebMercatorTiles.VisibleTiles(
+            center,
+            zoom: 2,
+            width: 256,
+            height: 256);
+
+        await Assert.That(visible).IsEquivalentTo(
+            [new MapTileKey(2, 1, 1)]);
+    }
+
+    [Test]
+    public async Task WebMercatorTiles_uses_the_nearest_integer_tile_zoom()
+    {
+        var visible = WebMercatorTiles.VisibleTiles(
+            new GeoCoordinate(0, 0),
+            zoom: 2.5,
+            width: 256,
+            height: 256);
+
+        await Assert.That(visible.All(tile => tile.Zoom == 3)).IsTrue();
+        await Assert.That(visible).Count().IsEqualTo(4);
+    }
+
+    [Test]
+    public async Task WebMercatorTiles_deduplicates_a_viewport_wider_than_the_world()
+    {
+        var visible = WebMercatorTiles.VisibleTiles(
+            new GeoCoordinate(0, 0),
+            zoom: 2,
+            width: 2_048,
+            height: 512);
+
+        await Assert.That(visible).Count().IsEqualTo(8);
+        await Assert.That(visible.Select(tile => tile.X).Distinct().Count())
+            .IsEqualTo(4);
+        await Assert.That(visible.Select(tile => tile.Y).Distinct().Count())
+            .IsEqualTo(2);
+    }
+
+    [Test]
+    public async Task GeoPathMetrics_measures_open_and_closed_paths()
+    {
+        var points = new[]
+        {
+            new GeoCoordinate(0, 0),
+            new GeoCoordinate(0, 1),
+            new GeoCoordinate(1, 1),
+        };
+
+        var open = GeoPathMetrics.PolylineLength(points);
+        var closed = GeoPathMetrics.PolylineLength(points, close: true);
+
+        await Assert.That(open).IsEqualTo(222_389.8d).Within(250d);
+        await Assert.That(closed).IsGreaterThan(open);
+    }
+
+    [Test]
+    public async Task GeoDrawing_calculates_circle_length_and_area()
+    {
+        var center = new GeoCoordinate(0, 0);
+        var edge = new GeoCoordinate(0, 0.01);
+        var drawing = new GeoDrawing(
+            GeoDrawingKind.Circle,
+            [center, edge]);
+
+        await Assert.That(drawing.RadiusMeters!.Value).IsEqualTo(1_111.9d).Within(2d);
+        await Assert.That(drawing.LengthMeters).IsGreaterThan(6_000d);
+        await Assert.That(drawing.AreaSquareMeters).IsGreaterThan(3_000_000d);
+    }
+
+    [Test]
+    public async Task GeoMeasurementText_formats_distance_area_and_preview()
+    {
+        var points = new[]
+        {
+            new GeoCoordinate(0, 0),
+            new GeoCoordinate(0, 0.01),
+            new GeoCoordinate(0.01, 0.01),
+        };
+
+        await Assert.That(GeoMeasurementText.FormatDistance(1_234.5d))
+            .IsEqualTo("1.23 km");
+        await Assert.That(GeoMeasurementText.FormatArea(1_234_567d))
+            .IsEqualTo("1.23 km²");
+        await Assert.That(GeoMeasurementText.ForDrawing(
+                GeoDrawingKind.Polygon,
+                points))
+            .Contains("perimeter");
+    }
+
+    [Test]
+    public async Task GeoCoordinateText_formats_invariant_text_and_json()
+    {
+        var coordinate = new GeoCoordinate(58.14623, 7.99517);
+
+        await Assert.That(GeoCoordinateText.Format(coordinate))
+            .IsEqualTo("58.146230, 7.995170");
+        await Assert.That(GeoCoordinateText.ToJson(coordinate, "office", "Office"))
+            .Contains("\"latitude\": 58.14623");
+    }
 }

@@ -69,7 +69,9 @@ public static class WebMercatorTiles
         ValidateViewport(zoom, width, height);
 
         var tileZoom = global::System.Math.Clamp(
-            (int)global::System.Math.Round(zoom),
+            (int)global::System.Math.Round(
+                zoom,
+                MidpointRounding.AwayFromZero),
             0,
             (int)MaximumZoom);
         var tileCount = 1 << tileZoom;
@@ -84,18 +86,23 @@ public static class WebMercatorTiles
         var bottom = centerWorldY + height / 2;
         var firstX = (int)global::System.Math.Floor(left / tileSize);
         var lastX = (int)global::System.Math.Floor(
-            (right - double.Epsilon) / tileSize);
+            double.BitDecrement(right) / tileSize);
         var firstY = (int)global::System.Math.Floor(top / tileSize);
         var lastY = (int)global::System.Math.Floor(
-            (bottom - double.Epsilon) / tileSize);
-        var keys = new HashSet<MapTileKey>();
+            double.BitDecrement(bottom) / tileSize);
+        var keys = new List<MapTileKey>();
+        var seen = new HashSet<MapTileKey>();
 
         for (var x = firstX; x <= lastX; x++)
         {
             for (var y = firstY; y <= lastY; y++)
             {
                 if (y >= 0 && y < tileCount)
-                    keys.Add(new MapTileKey(tileZoom, x, y));
+                {
+                    var key = new MapTileKey(tileZoom, x, y);
+                    if (seen.Add(key))
+                        keys.Add(key);
+                }
             }
         }
 
