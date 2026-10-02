@@ -127,6 +127,24 @@ public sealed class GeospatialTests
     }
 
     [Test]
+    public async Task WebMercatorTiles_unwraps_connected_paths_at_the_dateline()
+    {
+        var pixels = WebMercatorTiles.GeoPathToPixels(
+            new GeoCoordinate(0, 0),
+            zoom: 2,
+            width: 800,
+            height: 600,
+            [
+                new GeoCoordinate(0, 179),
+                new GeoCoordinate(0, -179),
+            ]);
+
+        await Assert.That(pixels).Count().IsEqualTo(2);
+        await Assert.That(global::System.Math.Abs(pixels[1].X - pixels[0].X))
+            .IsLessThan(100d);
+    }
+
+    [Test]
     public async Task WebMercatorTiles_lists_wrapped_tiles_and_clips_polar_rows()
     {
         var visible = WebMercatorTiles.VisibleTiles(
