@@ -24,7 +24,7 @@ public static class GeoPathMetrics
 
     /// <summary>
     /// Calculates an equirectangular approximation of polygon area in square meters.
-    /// This is intended for local map drawings, not continental-scale surveying.
+    /// This is intended for local regions, not continental-scale surveying.
     /// </summary>
     public static double PolygonAreaSquareMeters(IReadOnlyList<GeoCoordinate> points)
     {
