@@ -32,4 +32,7 @@ public enum MapKeyboardCommand
 
     /// <summary>Cancel the active drawing.</summary>
     CancelDrawing,
+
+    /// <summary>Request erasure of the currently selected overlay.</summary>
+    EraseSelectedOverlay,
 }

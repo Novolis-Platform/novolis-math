@@ -14,4 +14,7 @@ public enum GeoDrawingKind
 
     /// <summary>A center and edge point represented as a geographic circle.</summary>
     Circle,
+
+    /// <summary>Two opposite corners represented as a closed geographic rectangle.</summary>
+    Rectangle,
 }

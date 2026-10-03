@@ -42,6 +42,7 @@ public static class GeoMeasurementText
             GeoDrawingKind.Circle => FormatCircle(points),
             GeoDrawingKind.Polyline => FormatPolyline(points),
             GeoDrawingKind.Polygon => FormatPolygon(points),
+            GeoDrawingKind.Rectangle => FormatRectangle(points),
             _ => string.Empty,
         };
     }
@@ -68,4 +69,14 @@ public static class GeoMeasurementText
             : $"Polygon · {points.Count} points · perimeter {FormatDistance(
                 GeoPathMetrics.PolylineLength(points, close: true))} · area {FormatArea(
                 GeoPathMetrics.PolygonAreaSquareMeters(points))}";
+
+    static string FormatRectangle(IReadOnlyList<GeoCoordinate> points)
+    {
+        if (points.Count < 2)
+            return "Rectangle · drag to set opposite corner";
+
+        var rectangle = new GeoRectangle(points[0], points[1]);
+        return $"Rectangle · perimeter {FormatDistance(rectangle.PerimeterMeters)} · area {FormatArea(
+            rectangle.AreaSquareMeters)}";
+    }
 }
