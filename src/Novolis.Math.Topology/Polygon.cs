@@ -119,4 +119,31 @@ public class Polygon : IEnumerable<Vector3>
     {
         return $"Vertices: {string.Join(", ", _vertices)}";
     }
+
+    /// <summary>Even-odd containment on the XZ plane (Y ignored).</summary>
+    public bool ContainsXz(Vector3 point)
+    {
+        var inside = false;
+        var n = _vertices.Length;
+        if (n < 3)
+        {
+            return false;
+        }
+
+        for (int i = 0, j = n - 1; i < n; j = i++)
+        {
+            var zi = _vertices[i].Z;
+            var zj = _vertices[j].Z;
+            var xi = _vertices[i].X;
+            var xj = _vertices[j].X;
+            var intersect = zi > point.Z != zj > point.Z
+                && point.X < (xj - xi) * (point.Z - zi) / (zj - zi + 1e-6f) + xi;
+            if (intersect)
+            {
+                inside = !inside;
+            }
+        }
+
+        return inside;
+    }
 }

@@ -70,4 +70,15 @@ public readonly struct Rgba32 : IEquatable<Rgba32>
 
     /// <inheritdoc />
     public override string ToString() => $"RGBA({R},{G},{B},{A})";
+
+    /// <summary>Linear blend of two colors, <paramref name="t"/> clamped to 0…1.</summary>
+    public static Rgba32 Lerp(Rgba32 a, Rgba32 b, float t)
+    {
+        t = float.Clamp(t, 0f, 1f);
+        return new Rgba32(
+            (byte)(a.R + (b.R - a.R) * t),
+            (byte)(a.G + (b.G - a.G) * t),
+            (byte)(a.B + (b.B - a.B) * t),
+            (byte)(a.A + (b.A - a.A) * t));
+    }
 }
